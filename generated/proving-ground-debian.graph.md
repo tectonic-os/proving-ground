@@ -19,5 +19,4 @@ graph LR
 |---|---|---|---|---|
 | `/etc/pki/containers/cosign.pub` | file | `tectonic-os/signature-policy` |  |  |
 | `initramfs-generation` | capability | `base` |  |  |
-| `rechunking` | capability | `base` |  |  |
 | `signature-policy` | capability | `tectonic-os/signature-policy` |  |  |

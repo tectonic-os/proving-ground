@@ -58,7 +58,6 @@
         "family": "debian",
         "signed": true,
         "provides": [
-          "rechunking",
           "initramfs-generation"
         ],
         "provides_files": []
