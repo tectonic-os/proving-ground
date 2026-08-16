@@ -450,10 +450,16 @@ jobs:
         env:
           SYFT_CMD: ${{ steps.setup-syft.outputs.cmd }}
         run: |
+          # The cataloger is per family. The rpm one finds nothing on a deb
+          # image, so the SBOM comes back empty and attests to nothing.
+          case "$(jq -r '.base.family' "$IMAGE_PLAN")" in
+            debian | ubuntu) cataloger=deb ;;
+            *) cataloger=rpm ;;
+          esac
           mnt="$(sudo podman image mount "localhost/${IMAGE_NAME}:raw")"
           sudo "$SYFT_CMD" scan "dir:${mnt}" \
             --source-name "${IMAGE_NAME}" \
-            --select-catalogers 'rpm' \
+            --select-catalogers "$cataloger" \
             -o "spdx-json=${RUNNER_TEMP}/sbom.spdx.json"
           sudo podman image umount "localhost/${IMAGE_NAME}:raw"
           sudo chown "$(id -u):$(id -g)" "${RUNNER_TEMP}/sbom.spdx.json"
