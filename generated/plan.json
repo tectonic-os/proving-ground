@@ -169,7 +169,7 @@
               "provides": [],
               "requires": [],
               "provenance": {
-                "content": "57740be97ca927b2458948eaf4eadf1a8d91de7634bae3df0bb560a034b9b820",
+                "content": "6785d6fff7ed2a4c893b080f9351291b60575762e2df32bcc5c7ca7a1bcd8ffe",
                 "repo": false,
                 "pin": null,
                 "imported": null
@@ -178,7 +178,9 @@
                 {
                   "benchmark": "stig",
                   "rules": [
-                    "SRG-OS-000074-GPOS-00042"
+                    "SRG-OS-000074-GPOS-00042",
+                    "SRG-OS-000480-GPOS-00226",
+                    "SRG-OS-999999-GPOS-99999"
                   ]
                 }
               ]
