@@ -16,3 +16,5 @@ sources {
 audit {
     enforce #true
 }
+
+default-image "proving-ground"

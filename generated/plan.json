@@ -47,6 +47,93 @@
   "assets": [],
   "images": [
     {
+      "id": "proving-ground-debian",
+      "name": "proving ground debian",
+      "pretty_name": "",
+      "file": "./proving-ground-debian.image.kdl",
+      "url": "https://github.com/tectonic-os/proving-ground",
+      "issues_url": "https://github.com/tectonic-os/proving-ground/issues",
+      "base": {
+        "image": "ghcr.io/bootcrew/debian-bootc:latest",
+        "family": "debian",
+        "signed": true,
+        "provides": [
+          "rechunking",
+          "initramfs-generation"
+        ],
+        "provides_files": []
+      },
+      "flavours": [],
+      "default_flavour": null,
+      "targets": [
+        {
+          "name": "proving-ground-debian/none",
+          "image": "proving-ground-debian",
+          "flavour": null,
+          "published": "proving-ground-debian",
+          "default": false,
+          "pr": false,
+          "siblings": [],
+          "modules": [
+            {
+              "path": "tectonic-os/signature-policy",
+              "dir": "tectonic-os/signature-policy",
+              "flavour": null,
+              "variant": null,
+              "remote": null,
+              "description": "Sigstore signature verification for the image's own updates",
+              "options": {},
+              "provides": [
+                "signature-policy"
+              ],
+              "requires": [],
+              "provenance": {
+                "content": "37051b2bbfe5ca704d2dda496bef3bd84f6c4412198740eb2c8a858493966c52",
+                "repo": false,
+                "pin": null,
+                "imported": null
+              },
+              "satisfies": []
+            },
+            {
+              "path": "apt-probe",
+              "dir": "apt-probe",
+              "flavour": null,
+              "variant": null,
+              "remote": null,
+              "description": "Packages on a deb family, so the Debian image is not an empty one",
+              "options": {},
+              "provides": [],
+              "requires": [],
+              "provenance": {
+                "content": "d68e7f3164b9e14a67cf5b849b0ebd5ee887efec6eec32124413279e29175a75",
+                "repo": false,
+                "pin": null,
+                "imported": null
+              },
+              "satisfies": []
+            }
+          ],
+          "suppressed": [],
+          "secrets": [],
+          "contract_files": [
+            "/etc/pki/containers/cosign.pub"
+          ],
+          "verify_exceptions": [],
+          "assets": [],
+          "provides_files": {
+            "/etc/pki/containers/cosign.pub": "tectonic-os/signature-policy"
+          },
+          "overlay_files": {
+            "/etc/pki/containers/cosign.pub": "tectonic-os/signature-policy"
+          },
+          "overlay_overridden": [],
+          "collected_files": {},
+          "collect_destinations": []
+        }
+      ]
+    },
+    {
       "id": "proving-ground",
       "name": "proving-ground",
       "pretty_name": "",
@@ -151,7 +238,7 @@
               ],
               "requires": [],
               "provenance": {
-                "content": "f0e0ca040457e741f8e836e15f2147e8be398c84d8b3cb308b53ea1c7e81a13d",
+                "content": "37051b2bbfe5ca704d2dda496bef3bd84f6c4412198740eb2c8a858493966c52",
                 "repo": false,
                 "pin": null,
                 "imported": null
