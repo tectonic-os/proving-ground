@@ -1,0 +1,197 @@
+{
+  "schema_version": 1,
+  "default_image": "proving-ground",
+  "default_image_name": "proving-ground",
+  "pr_image": "proving-ground",
+  "default_target": "proving-ground/none",
+  "default_published": "proving-ground",
+  "pr_target": "proving-ground/none",
+  "pr_published": "proving-ground",
+  "ungated_target": "proving-ground/none",
+  "ungated_published": "proving-ground",
+  "cache_image": "proving-ground-cache",
+  "workflows": [
+    {
+      "file": "base-sig-probe.yml",
+      "enabled": true
+    },
+    {
+      "file": "build-disk.yml",
+      "enabled": true
+    },
+    {
+      "file": "build.yml",
+      "enabled": true
+    },
+    {
+      "file": "cleanup-registry.yml",
+      "enabled": true
+    },
+    {
+      "file": "kernel-freshness.yml",
+      "enabled": true
+    },
+    {
+      "file": "reconcile-workflows.yml",
+      "enabled": true
+    },
+    {
+      "file": "smoke-test.yml",
+      "enabled": true
+    }
+  ],
+  "audit": {
+    "enforce": false
+  },
+  "remotes": [],
+  "assets": [],
+  "images": [
+    {
+      "id": "proving-ground",
+      "name": "proving-ground",
+      "pretty_name": "",
+      "file": "./proving-ground.image.kdl",
+      "url": "https://github.com/tectonic-os/proving-ground",
+      "issues_url": "https://github.com/tectonic-os/proving-ground/issues",
+      "base": {
+        "image": "quay.io/fedora/fedora-bootc:44",
+        "family": "fedora",
+        "signed": false,
+        "provides": [
+          "rechunking",
+          "initramfs-generation",
+          "mac-policy"
+        ],
+        "provides_files": []
+      },
+      "flavours": [],
+      "default_flavour": null,
+      "targets": [
+        {
+          "name": "proving-ground/none",
+          "image": "proving-ground",
+          "flavour": null,
+          "published": "proving-ground",
+          "default": true,
+          "pr": true,
+          "siblings": [],
+          "modules": [
+            {
+              "path": "tectonic-os/backup-tools",
+              "dir": "tectonic-os/backup-tools",
+              "flavour": null,
+              "variant": null,
+              "remote": null,
+              "description": "Backup and sync tooling: borgbackup, restic and rclone",
+              "options": {},
+              "provides": [],
+              "requires": [],
+              "provenance": {
+                "content": "a3f76ef606f3277a0c0ed1c2dd5f7eeff28488fa445da1b62e5225441c2275ca",
+                "repo": false,
+                "pin": null,
+                "imported": {
+                  "collection": "tectonic-os",
+                  "content": "a3f76ef606f3277a0c0ed1c2dd5f7eeff28488fa445da1b62e5225441c2275ca",
+                  "pin": {
+                    "locator": "https://github.com/tectonic-os/modules/archive/refs/heads/{version}.tar.gz",
+                    "selector": "main",
+                    "verifier": null,
+                    "tracker": "unpinned",
+                    "reason": "This is the trusted source for modules",
+                    "from": "asset",
+                    "path": null,
+                    "resolved": "https://github.com/tectonic-os/modules/archive/refs/heads/main.tar.gz"
+                  }
+                }
+              },
+              "satisfies": []
+            },
+            {
+              "path": "tectonic-os/network-policy",
+              "dir": "tectonic-os/network-policy",
+              "flavour": null,
+              "variant": null,
+              "remote": null,
+              "description": "Network policy: LLMNR off, and resolv.conf pointed at the systemd-resolved stub",
+              "options": {},
+              "provides": [],
+              "requires": [],
+              "provenance": {
+                "content": "8eca3dcfee3e9b7c508b946a06de639b202c9a58ab8499a101b0b359e19ad89f",
+                "repo": false,
+                "pin": null,
+                "imported": {
+                  "collection": "tectonic-os",
+                  "content": "8eca3dcfee3e9b7c508b946a06de639b202c9a58ab8499a101b0b359e19ad89f",
+                  "pin": {
+                    "locator": "https://github.com/tectonic-os/modules/archive/refs/heads/{version}.tar.gz",
+                    "selector": "main",
+                    "verifier": null,
+                    "tracker": "unpinned",
+                    "reason": "This is the trusted source for modules",
+                    "from": "asset",
+                    "path": null,
+                    "resolved": "https://github.com/tectonic-os/modules/archive/refs/heads/main.tar.gz"
+                  }
+                }
+              },
+              "satisfies": []
+            },
+            {
+              "path": "tectonic-os/signature-policy",
+              "dir": "tectonic-os/signature-policy",
+              "flavour": null,
+              "variant": null,
+              "remote": null,
+              "description": "Sigstore signature verification for the image's own updates",
+              "options": {},
+              "provides": [
+                "signature-policy"
+              ],
+              "requires": [],
+              "provenance": {
+                "content": "f0e0ca040457e741f8e836e15f2147e8be398c84d8b3cb308b53ea1c7e81a13d",
+                "repo": false,
+                "pin": null,
+                "imported": {
+                  "collection": "tectonic-os",
+                  "content": "ce194aadd57fd4d976fa0eb56ce519e3c4a0c7d9c70a4ff714767a8b5f9ca8f0",
+                  "pin": {
+                    "locator": "https://github.com/tectonic-os/modules/archive/refs/heads/{version}.tar.gz",
+                    "selector": "main",
+                    "verifier": null,
+                    "tracker": "unpinned",
+                    "reason": "This is the trusted source for modules",
+                    "from": "asset",
+                    "path": null,
+                    "resolved": "https://github.com/tectonic-os/modules/archive/refs/heads/main.tar.gz"
+                  }
+                }
+              },
+              "satisfies": []
+            }
+          ],
+          "suppressed": [],
+          "secrets": [],
+          "contract_files": [
+            "/etc/pki/containers/cosign.pub"
+          ],
+          "verify_exceptions": [],
+          "assets": [],
+          "provides_files": {
+            "/etc/pki/containers/cosign.pub": "tectonic-os/signature-policy"
+          },
+          "overlay_files": {
+            "/etc/NetworkManager/conf.d/no-llmnr.conf": "tectonic-os/network-policy",
+            "/etc/pki/containers/cosign.pub": "tectonic-os/signature-policy",
+            "/usr/lib/tmpfiles.d/resolv-conf.conf": "tectonic-os/network-policy"
+          },
+          "overlay_overridden": [],
+          "collected_files": {},
+          "collect_destinations": []
+        }
+      ]
+    }
+  ]
+}

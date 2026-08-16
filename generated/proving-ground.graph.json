@@ -1,0 +1,47 @@
+{
+  "image": "proving-ground",
+  "capabilities": [
+    {
+      "name": "/etc/pki/containers/cosign.pub",
+      "kind": "file",
+      "build_only": false,
+      "provider": "tectonic-os/signature-policy",
+      "required_by": [],
+      "after": []
+    },
+    {
+      "name": "initramfs-generation",
+      "kind": "capability",
+      "build_only": false,
+      "provider": "base",
+      "required_by": [],
+      "after": []
+    },
+    {
+      "name": "mac-policy",
+      "kind": "capability",
+      "build_only": false,
+      "provider": "base",
+      "required_by": [],
+      "after": []
+    },
+    {
+      "name": "rechunking",
+      "kind": "capability",
+      "build_only": false,
+      "provider": "base",
+      "required_by": [],
+      "after": []
+    },
+    {
+      "name": "signature-policy",
+      "kind": "capability",
+      "build_only": false,
+      "provider": "tectonic-os/signature-policy",
+      "required_by": [],
+      "after": []
+    }
+  ],
+  "overrides": [],
+  "suppressed": []
+}
