@@ -41,7 +41,7 @@
     }
   ],
   "audit": {
-    "enforce": false
+    "enforce": true
   },
   "remotes": [],
   "assets": [],
@@ -154,22 +154,34 @@
                 "content": "f0e0ca040457e741f8e836e15f2147e8be398c84d8b3cb308b53ea1c7e81a13d",
                 "repo": false,
                 "pin": null,
-                "imported": {
-                  "collection": "tectonic-os",
-                  "content": "ce194aadd57fd4d976fa0eb56ce519e3c4a0c7d9c70a4ff714767a8b5f9ca8f0",
-                  "pin": {
-                    "locator": "https://github.com/tectonic-os/modules/archive/refs/heads/{version}.tar.gz",
-                    "selector": "main",
-                    "verifier": null,
-                    "tracker": "unpinned",
-                    "reason": "This is the trusted source for modules",
-                    "from": "asset",
-                    "path": null,
-                    "resolved": "https://github.com/tectonic-os/modules/archive/refs/heads/main.tar.gz"
-                  }
-                }
+                "imported": null
               },
               "satisfies": []
+            },
+            {
+              "path": "audit-probe",
+              "dir": "audit-probe",
+              "flavour": null,
+              "variant": null,
+              "remote": null,
+              "description": "Coverage claims for the scan job to measure against the built image",
+              "options": {},
+              "provides": [],
+              "requires": [],
+              "provenance": {
+                "content": "8d090a420d4fac7d8c16549cf1ff783661b4371ea6d6b37fb9619893908e83fd",
+                "repo": false,
+                "pin": null,
+                "imported": null
+              },
+              "satisfies": [
+                {
+                  "benchmark": "cis-fedora",
+                  "rules": [
+                    "1.3.1.1"
+                  ]
+                }
+              ]
             }
           ],
           "suppressed": [],

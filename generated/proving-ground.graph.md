@@ -12,6 +12,7 @@ graph LR
     m0["tectonic-os/backup-tools"]
     m1["tectonic-os/network-policy"]
     m2["tectonic-os/signature-policy"]
+    m3["audit-probe"]
 ```
 
 ## Capabilities

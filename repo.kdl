@@ -12,3 +12,7 @@ sources {
         }
     }
 }
+
+audit {
+    enforce #true
+}

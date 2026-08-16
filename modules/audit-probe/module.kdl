@@ -1,0 +1,7 @@
+description "Coverage claims for the scan job to measure against the built image"
+
+supports "fedora"
+
+satisfies {
+    cis-fedora "1.3.1.1"
+}

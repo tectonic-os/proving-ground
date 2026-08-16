@@ -12,5 +12,6 @@ image {
         module "tectonic-os/backup-tools"
         module "tectonic-os/network-policy"
         module "tectonic-os/signature-policy"
+        module "audit-probe"
     }
 }
