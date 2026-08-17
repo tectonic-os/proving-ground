@@ -23,13 +23,36 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
+  disk-types:
+    runs-on: ubuntu-24.04
+    permissions:
+      contents: read
+    outputs:
+      types: ${{ steps.set.outputs.types }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 # v7.0.0
+
+      - id: set
+        run: |
+          set -euo pipefail
+          plan="$(./scripts/tect.sh plan --json)"
+          family="$(jq -r --arg t "$(jq -r .ungated_target <<< "$plan")" \
+            '.images[] | select([.targets[].name] | index($t)) | .base.family' \
+            <<< "$plan")"
+          # The installer iso is Anaconda, which installs Fedora and nothing else.
+          types='["qcow2"]'
+          [ "$family" != fedora ] || types='["qcow2", "anaconda-iso"]'
+          echo "types=${types}" >> "$GITHUB_OUTPUT"
+
   build:
     name: Build disk images
+    needs: disk-types
     runs-on: ubuntu-24.04
     strategy:
       fail-fast: false
       matrix:
-        disk-type: ["qcow2", "anaconda-iso"]
+        disk-type: ${{ fromJson(needs.disk-types.outputs.types) }}
     permissions:
       contents: read
       packages: read

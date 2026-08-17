@@ -24,6 +24,11 @@ jobs:
       - name: Maximize build space
         uses: ublue-os/remove-unwanted-software@cc0becac701cf642c8f0a6613bbdaf5dc36b259e # v9
 
+      - name: Install qemu and UEFI firmware
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y --no-install-recommends qemu-system-x86 ovmf
+
       - name: Resolve image name
         run: |
           echo "IMAGE_NAME=$(./scripts/tect.sh plan --json | jq -r .ungated_published)" \
@@ -33,13 +38,25 @@ jobs:
         run: |
           sudo podman pull "${IMAGE_REGISTRY}/${IMAGE_NAME}:latest"
 
+      - name: Generate SSH key for VM access
+        run: |
+          ssh-keygen -t ed25519 -f "${RUNNER_TEMP}/smoke-key" -N '' -C 'smoke-test'
+          chmod 600 "${RUNNER_TEMP}/smoke-key"
+          # The key is a build-time customization: injecting it afterwards
+          # needs libguestfs and a relabel only one family has a use for.
+          {
+            cat disk_config/disk.toml
+            printf '\n[[customizations.user]]\nname = "root"\nkey = "%s"\n' \
+              "$(cat "${RUNNER_TEMP}/smoke-key.pub")"
+          } > "${RUNNER_TEMP}/smoke.toml"
+
       - name: Build qcow2 disk image
         run: |
           sudo podman run --rm --privileged \
             --pull=newer \
             --net=host \
             --security-opt label=type:unconfined_t \
-            -v "${PWD}/disk_config/disk.toml":/config.toml:ro \
+            -v "${RUNNER_TEMP}/smoke.toml":/config.toml:ro \
             -v "${RUNNER_TEMP}":/output \
             -v /var/lib/containers/storage:/var/lib/containers/storage \
             quay.io/centos-bootc/bootc-image-builder:latest \
@@ -49,30 +66,23 @@ jobs:
             "${IMAGE_REGISTRY}/${IMAGE_NAME}:latest"
           ls -lh "${RUNNER_TEMP}/qcow2/"
 
-      - name: Generate SSH key for VM access
-        run: |
-          ssh-keygen -t ed25519 -f "${RUNNER_TEMP}/smoke-key" -N '' -C 'tectonic-smoke-test'
-          chmod 600 "${RUNNER_TEMP}/smoke-key"
-
-      - name: Inject SSH key into disk image
-        run: |
-          sudo virt-customize -a "${RUNNER_TEMP}/qcow2/disk.qcow2" \
-            --ssh-inject "root:file:${RUNNER_TEMP}/smoke-key.pub" \
-            --selinux-relabel
-
       - name: Boot VM under qemu
         run: |
           qemu-img create -f qcow2 \
             -b "${RUNNER_TEMP}/qcow2/disk.qcow2" \
             -F qcow2 \
             "${RUNNER_TEMP}/overlay.qcow2"
+          cp /usr/share/OVMF/OVMF_VARS_4M.fd "${RUNNER_TEMP}/vars.fd"
 
           qemu-system-x86_64 \
+            -machine q35 \
             -m 4096 \
             -smp 2 \
             -cpu host \
             -enable-kvm \
             -display none \
+            -drive if=pflash,unit=0,format=raw,readonly=on,file=/usr/share/OVMF/OVMF_CODE_4M.fd \
+            -drive if=pflash,unit=1,format=raw,file="${RUNNER_TEMP}/vars.fd" \
             -serial "file:${RUNNER_TEMP}/console.log" \
             -drive file="${RUNNER_TEMP}/overlay.qcow2",if=virtio,format=qcow2 \
             -nic user,hostfwd=tcp::2222-:22 \
