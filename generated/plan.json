@@ -75,6 +75,26 @@
           "siblings": [],
           "modules": [
             {
+              "path": "tectonic-os/signature-policy",
+              "dir": "tectonic-os/signature-policy",
+              "flavour": null,
+              "variant": null,
+              "remote": null,
+              "description": "Sigstore signature verification for the image's own updates",
+              "options": {},
+              "provides": [
+                "signature-policy"
+              ],
+              "requires": [],
+              "provenance": {
+                "content": "3d6ce39ec2718f8260427fa833d4a1ede5b85ac13332a797759ee4eb634e92d2",
+                "repo": false,
+                "pin": null,
+                "imported": null
+              },
+              "satisfies": []
+            },
+            {
               "path": "ubuntu-probe",
               "dir": "ubuntu-probe",
               "flavour": null,
@@ -95,11 +115,17 @@
           ],
           "suppressed": [],
           "secrets": [],
-          "contract_files": [],
+          "contract_files": [
+            "/etc/pki/containers/cosign.pub"
+          ],
           "verify_exceptions": [],
           "assets": [],
-          "provides_files": {},
-          "overlay_files": {},
+          "provides_files": {
+            "/etc/pki/containers/cosign.pub": "tectonic-os/signature-policy"
+          },
+          "overlay_files": {
+            "/etc/pki/containers/cosign.pub": "tectonic-os/signature-policy"
+          },
           "overlay_overridden": [],
           "collected_files": {},
           "collect_destinations": []

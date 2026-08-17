@@ -9,11 +9,14 @@ right.
 ```mermaid
 graph LR
     base["ghcr.io/bootcrew/ubuntu-bootc:latest"]
-    m0["ubuntu-probe"]
+    m0["tectonic-os/signature-policy"]
+    m1["ubuntu-probe"]
 ```
 
 ## Capabilities
 
 | Name | Kind | Provided by | Required by | After |
 |---|---|---|---|---|
+| `/etc/pki/containers/cosign.pub` | file | `tectonic-os/signature-policy` |  |  |
 | `initramfs-generation` | capability | `base` |  |  |
+| `signature-policy` | capability | `tectonic-os/signature-policy` |  |  |

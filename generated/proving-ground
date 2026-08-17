@@ -18,6 +18,16 @@ FROM ${BASE}
 
 ## Module layers
 
+# ---- tectonic-os/signature-policy ----
+RUN --mount=type=bind,from=ctx,source=/modules/tectonic-os/signature-policy,target=/ctx/modules/tectonic-os/signature-policy \
+    --mount=type=bind,from=ctx,source=/lib,target=/ctx/lib \
+    --mount=type=bind,from=ctx,source=/generated/proving-ground.d/tectonic-os/signature-policy.sh,target=/ctx/module.sh \
+    --mount=type=bind,from=tect,source=/tect,target=/ctx/tect \
+    --mount=type=cache,target=/var/cache \
+    --mount=type=cache,target=/var/log \
+    --mount=type=tmpfs,target=/tmp \
+    bash /ctx/module.sh
+
 # ---- ubuntu-probe ----
 RUN --mount=type=bind,from=ctx,source=/modules/ubuntu-probe,target=/ctx/modules/ubuntu-probe \
     --mount=type=bind,from=ctx,source=/lib,target=/ctx/lib \
@@ -47,6 +57,17 @@ ARG IMAGE_REGISTRY=""
 # ---- os-release ----
 RUN --mount=type=bind,from=tect,source=/tect,target=/ctx/tect \
     IMAGE_VERSION="${IMAGE_VERSION}" IMAGE_ID="${IMAGE_ID}" IMAGE_NAME="${IMAGE_NAME}" IMAGE_URL="${IMAGE_URL}" IMAGE_ISSUES_URL="${IMAGE_ISSUES_URL}" IMAGE_REGISTRY="${IMAGE_REGISTRY}" /ctx/tect os-release
+
+# ---- finalize ----
+RUN --mount=type=bind,from=ctx,source=/generated/proving-ground.d/finalize.sh,target=/ctx/finalize.sh \
+    --mount=type=bind,from=ctx,source=/lib,target=/ctx/lib \
+    --mount=type=bind,from=ctx,source=/modules/tectonic-os/signature-policy,target=/ctx/modules/tectonic-os/signature-policy \
+    --mount=type=bind,from=tect,source=/tect,target=/ctx/tect \
+    --mount=type=cache,target=/var/cache \
+    --mount=type=cache,target=/var/log \
+    --mount=type=tmpfs,target=/tmp \
+    FLAVOUR=${FLAVOUR} IMAGE_VERSION="${IMAGE_VERSION}" \
+    IMAGE_ID="${IMAGE_ID}" IMAGE_NAME="${IMAGE_NAME}" IMAGE_URL="${IMAGE_URL}" IMAGE_ISSUES_URL="${IMAGE_ISSUES_URL}" IMAGE_REGISTRY="${IMAGE_REGISTRY}" bash /ctx/finalize.sh
 
 # ---- END GENERATED ----
 
