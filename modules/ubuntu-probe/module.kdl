@@ -1,0 +1,7 @@
+description "Packages on the ubuntu family, so the Ubuntu image is not an empty one"
+
+supports "ubuntu"
+
+packages {
+    ubuntu "tree"
+}

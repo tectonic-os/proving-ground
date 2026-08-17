@@ -3,15 +3,13 @@ image {
     url "https://github.com/tectonic-os/proving-ground"
     issues-url "https://github.com/tectonic-os/proving-ground/issues"
 
-    base "quay.io/fedora/fedora-bootc:44" {
-        family "fedora"
-        provides "rechunking" "initramfs-generation" "mac-policy"
+    base "ghcr.io/bootcrew/ubuntu-bootc:latest" {
+        family "ubuntu"
+        provides "initramfs-generation"
+        signed #true
     }
 
     modules {
-        module "tectonic-os/backup-tools"
-        module "tectonic-os/network-policy"
-        module "tectonic-os/signature-policy"
-        module "audit-probe"
+        module "ubuntu-probe"
     }
 }

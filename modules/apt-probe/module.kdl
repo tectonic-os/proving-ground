@@ -1,7 +1,0 @@
-description "Packages on a deb family, so the Debian image is not an empty one"
-
-supports "debian"
-
-packages {
-    debian "restic" "rclone"
-}

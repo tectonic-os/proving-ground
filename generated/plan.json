@@ -47,92 +47,6 @@
   "assets": [],
   "images": [
     {
-      "id": "proving-ground-debian",
-      "name": "proving ground debian",
-      "pretty_name": "",
-      "file": "./proving-ground-debian.image.kdl",
-      "url": "https://github.com/tectonic-os/proving-ground",
-      "issues_url": "https://github.com/tectonic-os/proving-ground/issues",
-      "base": {
-        "image": "ghcr.io/bootcrew/debian-bootc:latest",
-        "family": "debian",
-        "signed": true,
-        "provides": [
-          "initramfs-generation"
-        ],
-        "provides_files": []
-      },
-      "flavours": [],
-      "default_flavour": null,
-      "targets": [
-        {
-          "name": "proving-ground-debian/none",
-          "image": "proving-ground-debian",
-          "flavour": null,
-          "published": "proving-ground-debian",
-          "default": false,
-          "pr": false,
-          "siblings": [],
-          "modules": [
-            {
-              "path": "tectonic-os/signature-policy",
-              "dir": "tectonic-os/signature-policy",
-              "flavour": null,
-              "variant": null,
-              "remote": null,
-              "description": "Sigstore signature verification for the image's own updates",
-              "options": {},
-              "provides": [
-                "signature-policy"
-              ],
-              "requires": [],
-              "provenance": {
-                "content": "37051b2bbfe5ca704d2dda496bef3bd84f6c4412198740eb2c8a858493966c52",
-                "repo": false,
-                "pin": null,
-                "imported": null
-              },
-              "satisfies": []
-            },
-            {
-              "path": "apt-probe",
-              "dir": "apt-probe",
-              "flavour": null,
-              "variant": null,
-              "remote": null,
-              "description": "Packages on a deb family, so the Debian image is not an empty one",
-              "options": {},
-              "provides": [],
-              "requires": [],
-              "provenance": {
-                "content": "d68e7f3164b9e14a67cf5b849b0ebd5ee887efec6eec32124413279e29175a75",
-                "repo": false,
-                "pin": null,
-                "imported": null
-              },
-              "satisfies": []
-            }
-          ],
-          "suppressed": [],
-          "secrets": [],
-          "contract_files": [
-            "/etc/pki/containers/cosign.pub"
-          ],
-          "verify_exceptions": [],
-          "assets": [],
-          "provides_files": {
-            "/etc/pki/containers/cosign.pub": "tectonic-os/signature-policy"
-          },
-          "overlay_files": {
-            "/etc/pki/containers/cosign.pub": "tectonic-os/signature-policy"
-          },
-          "overlay_overridden": [],
-          "collected_files": {},
-          "collect_destinations": []
-        }
-      ]
-    },
-    {
       "id": "proving-ground",
       "name": "proving-ground",
       "pretty_name": "",
@@ -140,13 +54,11 @@
       "url": "https://github.com/tectonic-os/proving-ground",
       "issues_url": "https://github.com/tectonic-os/proving-ground/issues",
       "base": {
-        "image": "quay.io/fedora/fedora-bootc:44",
-        "family": "fedora",
-        "signed": false,
+        "image": "ghcr.io/bootcrew/ubuntu-bootc:latest",
+        "family": "ubuntu",
+        "signed": true,
         "provides": [
-          "rechunking",
-          "initramfs-generation",
-          "mac-policy"
+          "initramfs-generation"
         ],
         "provides_files": []
       },
@@ -163,128 +75,31 @@
           "siblings": [],
           "modules": [
             {
-              "path": "tectonic-os/backup-tools",
-              "dir": "tectonic-os/backup-tools",
+              "path": "ubuntu-probe",
+              "dir": "ubuntu-probe",
               "flavour": null,
               "variant": null,
               "remote": null,
-              "description": "Backup and sync tooling: borgbackup, restic and rclone",
+              "description": "Packages on the ubuntu family, so the Ubuntu image is not an empty one",
               "options": {},
               "provides": [],
               "requires": [],
               "provenance": {
-                "content": "a3f76ef606f3277a0c0ed1c2dd5f7eeff28488fa445da1b62e5225441c2275ca",
-                "repo": false,
-                "pin": null,
-                "imported": {
-                  "collection": "tectonic-os",
-                  "content": "a3f76ef606f3277a0c0ed1c2dd5f7eeff28488fa445da1b62e5225441c2275ca",
-                  "pin": {
-                    "locator": "https://github.com/tectonic-os/modules/archive/refs/heads/{version}.tar.gz",
-                    "selector": "main",
-                    "verifier": null,
-                    "tracker": "unpinned",
-                    "reason": "This is the trusted source for modules",
-                    "from": "asset",
-                    "path": null,
-                    "resolved": "https://github.com/tectonic-os/modules/archive/refs/heads/main.tar.gz"
-                  }
-                }
-              },
-              "satisfies": []
-            },
-            {
-              "path": "tectonic-os/network-policy",
-              "dir": "tectonic-os/network-policy",
-              "flavour": null,
-              "variant": null,
-              "remote": null,
-              "description": "Network policy: LLMNR off, and resolv.conf pointed at the systemd-resolved stub",
-              "options": {},
-              "provides": [],
-              "requires": [],
-              "provenance": {
-                "content": "8eca3dcfee3e9b7c508b946a06de639b202c9a58ab8499a101b0b359e19ad89f",
-                "repo": false,
-                "pin": null,
-                "imported": {
-                  "collection": "tectonic-os",
-                  "content": "8eca3dcfee3e9b7c508b946a06de639b202c9a58ab8499a101b0b359e19ad89f",
-                  "pin": {
-                    "locator": "https://github.com/tectonic-os/modules/archive/refs/heads/{version}.tar.gz",
-                    "selector": "main",
-                    "verifier": null,
-                    "tracker": "unpinned",
-                    "reason": "This is the trusted source for modules",
-                    "from": "asset",
-                    "path": null,
-                    "resolved": "https://github.com/tectonic-os/modules/archive/refs/heads/main.tar.gz"
-                  }
-                }
-              },
-              "satisfies": []
-            },
-            {
-              "path": "tectonic-os/signature-policy",
-              "dir": "tectonic-os/signature-policy",
-              "flavour": null,
-              "variant": null,
-              "remote": null,
-              "description": "Sigstore signature verification for the image's own updates",
-              "options": {},
-              "provides": [
-                "signature-policy"
-              ],
-              "requires": [],
-              "provenance": {
-                "content": "37051b2bbfe5ca704d2dda496bef3bd84f6c4412198740eb2c8a858493966c52",
+                "content": "25a9d552ea7b07dfd5492c97c0e58687521850b9e36065be6eca61ce43089e47",
                 "repo": false,
                 "pin": null,
                 "imported": null
               },
               "satisfies": []
-            },
-            {
-              "path": "audit-probe",
-              "dir": "audit-probe",
-              "flavour": null,
-              "variant": null,
-              "remote": null,
-              "description": "Coverage claims for the scan job to measure against the built image",
-              "options": {},
-              "provides": [],
-              "requires": [],
-              "provenance": {
-                "content": "57740be97ca927b2458948eaf4eadf1a8d91de7634bae3df0bb560a034b9b820",
-                "repo": false,
-                "pin": null,
-                "imported": null
-              },
-              "satisfies": [
-                {
-                  "benchmark": "stig",
-                  "rules": [
-                    "SRG-OS-000074-GPOS-00042"
-                  ]
-                }
-              ]
             }
           ],
           "suppressed": [],
           "secrets": [],
-          "contract_files": [
-            "/etc/pki/containers/cosign.pub"
-          ],
+          "contract_files": [],
           "verify_exceptions": [],
           "assets": [],
-          "provides_files": {
-            "/etc/pki/containers/cosign.pub": "tectonic-os/signature-policy"
-          },
-          "overlay_files": {
-            "/etc/NetworkManager/conf.d/no-llmnr.conf": "tectonic-os/network-policy",
-            "/etc/pki/containers/cosign.pub": "tectonic-os/signature-policy",
-            "/usr/lib/tmpfiles.d/resolv-conf.conf": "tectonic-os/network-policy"
-          },
+          "provides_files": {},
+          "overlay_files": {},
           "overlay_overridden": [],
           "collected_files": {},
           "collect_destinations": []

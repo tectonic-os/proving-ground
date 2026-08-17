@@ -1,7 +1,0 @@
-description "Coverage claims for the scan job to measure against the built image"
-
-supports "fedora"
-
-satisfies {
-    stig "SRG-OS-000074-GPOS-00042"
-}
