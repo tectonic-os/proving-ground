@@ -100,12 +100,12 @@
               "flavour": null,
               "variant": null,
               "remote": null,
-              "description": "Packages on the ubuntu family, so the Ubuntu image is not an empty one",
+              "description": "The ostree CLI the base leaves out, which `bootc install` runs",
               "options": {},
               "provides": [],
               "requires": [],
               "provenance": {
-                "content": "25a9d552ea7b07dfd5492c97c0e58687521850b9e36065be6eca61ce43089e47",
+                "content": "856a49e3879f11373d2da05bd39a915cd9f02c8f847077390d1cc522aa6f3405",
                 "repo": false,
                 "pin": null,
                 "imported": null

@@ -7,6 +7,6 @@ export MODDIR
 
 mkdir -p /var/lib/apt/lists/partial /var/lib/dpkg /var/cache/apt/archives/partial
 apt-get update
-DEBIAN_FRONTEND=noninteractive apt-get install -y tree
+DEBIAN_FRONTEND=noninteractive apt-get install -y ostree
 apt-get clean
 rm -rf /var/lib/apt/lists/*

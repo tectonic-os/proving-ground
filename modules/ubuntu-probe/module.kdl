@@ -1,7 +1,7 @@
-description "Packages on the ubuntu family, so the Ubuntu image is not an empty one"
+description "The ostree CLI the base leaves out, which `bootc install` runs"
 
 supports "ubuntu"
 
 packages {
-    ubuntu "tree"
+    ubuntu "ostree"
 }
