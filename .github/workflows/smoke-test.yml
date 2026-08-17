@@ -42,36 +42,26 @@ jobs:
         run: |
           ssh-keygen -t ed25519 -f "${RUNNER_TEMP}/smoke-key" -N '' -C 'smoke-test'
           chmod 600 "${RUNNER_TEMP}/smoke-key"
-          # The key is a build-time customization: injecting it afterwards
-          # needs libguestfs and a relabel only one family has a use for.
-          {
-            cat disk_config/disk.toml
-            printf '\n[[customizations.user]]\nname = "root"\nkey = "%s"\n' \
-              "$(cat "${RUNNER_TEMP}/smoke-key.pub")"
-          } > "${RUNNER_TEMP}/smoke.toml"
 
-      - name: Build qcow2 disk image
+      - name: Install the image to a disk
         run: |
-          sudo podman run --rm --privileged \
-            --pull=newer \
-            --net=host \
+          truncate -s 20G "${RUNNER_TEMP}/disk.raw"
+          sudo podman run --rm --privileged --pid=host \
             --security-opt label=type:unconfined_t \
-            -v "${RUNNER_TEMP}/smoke.toml":/config.toml:ro \
-            -v "${RUNNER_TEMP}":/output \
+            -v /dev:/dev \
             -v /var/lib/containers/storage:/var/lib/containers/storage \
-            quay.io/centos-bootc/bootc-image-builder:latest \
-            --type qcow2 \
-            --use-librepo=True \
-            --rootfs=btrfs \
-            "${IMAGE_REGISTRY}/${IMAGE_NAME}:latest"
-          ls -lh "${RUNNER_TEMP}/qcow2/"
+            -v "${RUNNER_TEMP}":/output \
+            "${IMAGE_REGISTRY}/${IMAGE_NAME}:latest" \
+            bootc install to-disk \
+            --via-loopback \
+            --generic-image \
+            --filesystem btrfs \
+            --root-ssh-authorized-keys /output/smoke-key.pub \
+            /output/disk.raw
+          ls -lh "${RUNNER_TEMP}/disk.raw"
 
       - name: Boot VM under qemu
         run: |
-          qemu-img create -f qcow2 \
-            -b "${RUNNER_TEMP}/qcow2/disk.qcow2" \
-            -F qcow2 \
-            "${RUNNER_TEMP}/overlay.qcow2"
           cp /usr/share/OVMF/OVMF_VARS_4M.fd "${RUNNER_TEMP}/vars.fd"
 
           qemu-system-x86_64 \
@@ -84,7 +74,7 @@ jobs:
             -drive if=pflash,unit=0,format=raw,readonly=on,file=/usr/share/OVMF/OVMF_CODE_4M.fd \
             -drive if=pflash,unit=1,format=raw,file="${RUNNER_TEMP}/vars.fd" \
             -serial "file:${RUNNER_TEMP}/console.log" \
-            -drive file="${RUNNER_TEMP}/overlay.qcow2",if=virtio,format=qcow2 \
+            -drive file="${RUNNER_TEMP}/disk.raw",if=virtio,format=raw \
             -nic user,hostfwd=tcp::2222-:22 \
             &
           QEMU_PID=$!
