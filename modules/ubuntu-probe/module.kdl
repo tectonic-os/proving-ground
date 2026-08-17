@@ -1,3 +1,7 @@
-description "The ostree CLI the base leaves out, which `bootc install` runs"
+description "The ostree CLI the base leaves out, and a package to catalog"
 
 supports "ubuntu"
+
+packages {
+    ubuntu "tree"
+}

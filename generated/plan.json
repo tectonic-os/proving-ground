@@ -100,12 +100,12 @@
               "flavour": null,
               "variant": null,
               "remote": null,
-              "description": "The ostree CLI the base leaves out, which `bootc install` runs",
+              "description": "The ostree CLI the base leaves out, and a package to catalog",
               "options": {},
               "provides": [],
               "requires": [],
               "provenance": {
-                "content": "437dced04af58a50c2fdeef4f77742f47b2b540073fc2cd4d85991d9debf31a5",
+                "content": "52f0abe1990589575ab14f36ab81d6db3c8934dd89905a1008dcf9fd42d3dbd6",
                 "repo": false,
                 "pin": null,
                 "imported": null
