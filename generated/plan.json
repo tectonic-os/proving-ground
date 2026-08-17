@@ -54,11 +54,13 @@
       "url": "https://github.com/tectonic-os/proving-ground",
       "issues_url": "https://github.com/tectonic-os/proving-ground/issues",
       "base": {
-        "image": "ghcr.io/bootcrew/ubuntu-bootc:latest",
-        "family": "ubuntu",
+        "image": "quay.io/fedora/fedora-bootc:44",
+        "family": "fedora",
         "signed": true,
         "provides": [
-          "initramfs-generation"
+          "rechunking",
+          "initramfs-generation",
+          "mac-policy"
         ],
         "provides_files": []
       },
@@ -88,24 +90,6 @@
               "requires": [],
               "provenance": {
                 "content": "3d6ce39ec2718f8260427fa833d4a1ede5b85ac13332a797759ee4eb634e92d2",
-                "repo": false,
-                "pin": null,
-                "imported": null
-              },
-              "satisfies": []
-            },
-            {
-              "path": "ubuntu-probe",
-              "dir": "ubuntu-probe",
-              "flavour": null,
-              "variant": null,
-              "remote": null,
-              "description": "The ostree CLI the base leaves out, and a package to catalog",
-              "options": {},
-              "provides": [],
-              "requires": [],
-              "provenance": {
-                "content": "52f0abe1990589575ab14f36ab81d6db3c8934dd89905a1008dcf9fd42d3dbd6",
                 "repo": false,
                 "pin": null,
                 "imported": null

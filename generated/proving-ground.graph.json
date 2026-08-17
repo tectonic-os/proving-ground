@@ -18,6 +18,22 @@
       "after": []
     },
     {
+      "name": "mac-policy",
+      "kind": "capability",
+      "build_only": false,
+      "provider": "base",
+      "required_by": [],
+      "after": []
+    },
+    {
+      "name": "rechunking",
+      "kind": "capability",
+      "build_only": false,
+      "provider": "base",
+      "required_by": [],
+      "after": []
+    },
+    {
       "name": "signature-policy",
       "kind": "capability",
       "build_only": false,

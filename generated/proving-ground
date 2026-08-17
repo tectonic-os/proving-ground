@@ -28,16 +28,6 @@ RUN --mount=type=bind,from=ctx,source=/modules/tectonic-os/signature-policy,targ
     --mount=type=tmpfs,target=/tmp \
     bash /ctx/module.sh
 
-# ---- ubuntu-probe ----
-RUN --mount=type=bind,from=ctx,source=/modules/ubuntu-probe,target=/ctx/modules/ubuntu-probe \
-    --mount=type=bind,from=ctx,source=/lib,target=/ctx/lib \
-    --mount=type=bind,from=ctx,source=/generated/proving-ground.d/ubuntu-probe.sh,target=/ctx/module.sh \
-    --mount=type=bind,from=tect,source=/tect,target=/ctx/tect \
-    --mount=type=cache,target=/var/cache \
-    --mount=type=cache,target=/var/log \
-    --mount=type=tmpfs,target=/tmp \
-    bash /ctx/module.sh
-
 # ---- flavour gate ----
 ARG FLAVOUR
 

@@ -8,9 +8,8 @@ right.
 
 ```mermaid
 graph LR
-    base["ghcr.io/bootcrew/ubuntu-bootc:latest"]
+    base["quay.io/fedora/fedora-bootc:44"]
     m0["tectonic-os/signature-policy"]
-    m1["ubuntu-probe"]
 ```
 
 ## Capabilities
@@ -19,4 +18,6 @@ graph LR
 |---|---|---|---|---|
 | `/etc/pki/containers/cosign.pub` | file | `tectonic-os/signature-policy` |  |  |
 | `initramfs-generation` | capability | `base` |  |  |
+| `mac-policy` | capability | `base` |  |  |
+| `rechunking` | capability | `base` |  |  |
 | `signature-policy` | capability | `tectonic-os/signature-policy` |  |  |
