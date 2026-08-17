@@ -56,6 +56,7 @@ jobs:
             --via-loopback \
             --generic-image \
             --filesystem btrfs \
+            --karg console=ttyS0,115200n8 \
             --root-ssh-authorized-keys /output/smoke-key.pub \
             /output/disk.raw
           ls -lh "${RUNNER_TEMP}/disk.raw"
@@ -76,7 +77,7 @@ jobs:
             -serial "file:${RUNNER_TEMP}/console.log" \
             -drive file="${RUNNER_TEMP}/disk.raw",if=virtio,format=raw \
             -nic user,hostfwd=tcp::2222-:22 \
-            &
+            > "${RUNNER_TEMP}/qemu.log" 2>&1 &
           QEMU_PID=$!
           echo "qemu_pid=${QEMU_PID}" >> "$GITHUB_ENV"
 
@@ -130,6 +131,9 @@ jobs:
       - name: Serial console
         if: failure()
         run: |
+          echo "==> qemu"
+          cat "${RUNNER_TEMP}/qemu.log" 2>/dev/null || true
+          echo "==> serial"
           if [ -s "${RUNNER_TEMP}/console.log" ]; then
             cat "${RUNNER_TEMP}/console.log"
           else
