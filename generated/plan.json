@@ -42,13 +42,13 @@
       "file": "./proving-ground.image.kdl",
       "pin": {
         "locator": "https://github.com/tectonic-os/modules/archive/{version}.tar.gz",
-        "selector": "d62198faa1588f7e1ce24e75a06d37512865b81c",
-        "verifier": "a82171c6c1016b03382925e1ba1dfc81abd7c7cdde119ab0ebb055c89a7e146d",
+        "selector": "7582148f693ec971dca980f940f140b5d5351b48",
+        "verifier": "171373f3d960db45da171ebe8d9fa5182f2c8941e7565aef9ee46f269ee91290",
         "tracker": "manual",
         "reason": "the collection publishes no releases to track",
         "from": "asset",
         "path": null,
-        "resolved": "https://github.com/tectonic-os/modules/archive/d62198faa1588f7e1ce24e75a06d37512865b81c.tar.gz"
+        "resolved": "https://github.com/tectonic-os/modules/archive/7582148f693ec971dca980f940f140b5d5351b48.tar.gz"
       }
     }
   ],
@@ -93,7 +93,7 @@
               "dir": ".remote/tectonic-os/signature-policy",
               "flavour": null,
               "variant": null,
-              "remote": "d62198faa1588f7e1ce24e75a06d37512865b81c",
+              "remote": "7582148f693ec971dca980f940f140b5d5351b48",
               "description": "Sigstore signature verification for the image's own updates",
               "options": {},
               "provides": [
@@ -105,13 +105,13 @@
                 "repo": false,
                 "pin": {
                   "locator": "https://github.com/tectonic-os/modules/archive/{version}.tar.gz",
-                  "selector": "d62198faa1588f7e1ce24e75a06d37512865b81c",
-                  "verifier": "a82171c6c1016b03382925e1ba1dfc81abd7c7cdde119ab0ebb055c89a7e146d",
+                  "selector": "7582148f693ec971dca980f940f140b5d5351b48",
+                  "verifier": "171373f3d960db45da171ebe8d9fa5182f2c8941e7565aef9ee46f269ee91290",
                   "tracker": "manual",
                   "reason": "the collection publishes no releases to track",
                   "from": "asset",
                   "path": null,
-                  "resolved": "https://github.com/tectonic-os/modules/archive/d62198faa1588f7e1ce24e75a06d37512865b81c.tar.gz"
+                  "resolved": "https://github.com/tectonic-os/modules/archive/7582148f693ec971dca980f940f140b5d5351b48.tar.gz"
                 },
                 "imported": null
               },
