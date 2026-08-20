@@ -3,6 +3,6 @@
 set -euxo pipefail
 
 # ---- tectonic-os/signature-policy ----
-MODDIR=/ctx/modules/tectonic-os/signature-policy
+MODDIR=/ctx/modules/.remote/tectonic-os/signature-policy
 export MODDIR
-source /ctx/modules/tectonic-os/signature-policy/finalize.sh
+source /ctx/modules/.remote/tectonic-os/signature-policy/finalize.sh

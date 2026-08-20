@@ -10,6 +10,8 @@ image {
     }
 
     modules {
-        module "tectonic-os/signature-policy"
+        source "tectonic-os" {
+            module "signature-policy"
+        }
     }
 }

@@ -3,47 +3,55 @@
   "default_image": "proving-ground",
   "default_image_name": "proving-ground",
   "pr_image": "proving-ground",
-  "default_target": "proving-ground/none",
+  "default_target": "proving-ground",
   "default_published": "proving-ground",
-  "pr_target": "proving-ground/none",
+  "pr_target": "proving-ground",
   "pr_published": "proving-ground",
-  "ungated_target": "proving-ground/none",
+  "ungated_target": "proving-ground",
   "ungated_published": "proving-ground",
   "cache_image": "proving-ground-cache",
   "workflows": [
     {
-      "file": "base-sig-probe.yml",
-      "enabled": true
+      "file": "build.yml",
+      "schedule": "30 12 * * *"
     },
     {
       "file": "build-disk.yml",
-      "enabled": true
+      "schedule": null
     },
     {
-      "file": "build.yml",
-      "enabled": true
+      "file": "base-sig-probe.yml",
+      "schedule": "30 6 * * *"
     },
     {
       "file": "cleanup-registry.yml",
-      "enabled": true
-    },
-    {
-      "file": "kernel-freshness.yml",
-      "enabled": true
-    },
-    {
-      "file": "reconcile-workflows.yml",
-      "enabled": true
+      "schedule": "30 14 * * *"
     },
     {
       "file": "smoke-test.yml",
-      "enabled": true
+      "schedule": "30 3 * * 1"
     }
   ],
   "audit": {
     "enforce": true
   },
-  "remotes": [],
+  "remotes": [
+    {
+      "name": "tectonic-os/signature-policy",
+      "dir": "modules/.remote/tectonic-os/signature-policy",
+      "file": "./proving-ground.image.kdl",
+      "pin": {
+        "locator": "https://github.com/tectonic-os/modules/archive/{version}.tar.gz",
+        "selector": "d1a471d9c326dda031f86e00755a274e61b22a8c",
+        "verifier": "c66efe5c814a2a6e19fd645010de073b3df4fe3675ac946533a95ac1b23095db",
+        "tracker": "manual",
+        "reason": "the collection publishes no releases to track",
+        "from": "asset",
+        "path": null,
+        "resolved": "https://github.com/tectonic-os/modules/archive/d1a471d9c326dda031f86e00755a274e61b22a8c.tar.gz"
+      }
+    }
+  ],
   "assets": [],
   "images": [
     {
@@ -53,6 +61,10 @@
       "file": "./proving-ground.image.kdl",
       "url": "https://github.com/tectonic-os/proving-ground",
       "issues_url": "https://github.com/tectonic-os/proving-ground/issues",
+      "description": "",
+      "keywords": [],
+      "logo_url": "",
+      "conforms": "",
       "base": {
         "image": "quay.io/fedora/fedora-bootc:44",
         "family": "fedora",
@@ -68,7 +80,7 @@
       "default_flavour": null,
       "targets": [
         {
-          "name": "proving-ground/none",
+          "name": "proving-ground",
           "image": "proving-ground",
           "flavour": null,
           "published": "proving-ground",
@@ -78,10 +90,10 @@
           "modules": [
             {
               "path": "tectonic-os/signature-policy",
-              "dir": "tectonic-os/signature-policy",
+              "dir": ".remote/tectonic-os/signature-policy",
               "flavour": null,
               "variant": null,
-              "remote": null,
+              "remote": "d1a471d9c326dda031f86e00755a274e61b22a8c",
               "description": "Sigstore signature verification for the image's own updates",
               "options": {},
               "provides": [
@@ -89,9 +101,18 @@
               ],
               "requires": [],
               "provenance": {
-                "content": "3d6ce39ec2718f8260427fa833d4a1ede5b85ac13332a797759ee4eb634e92d2",
+                "content": "ecf4e67ec46a6aa34f1765a40169a6e526c8f25d6e04a5b3519ed96d63445d4a",
                 "repo": false,
-                "pin": null,
+                "pin": {
+                  "locator": "https://github.com/tectonic-os/modules/archive/{version}.tar.gz",
+                  "selector": "d1a471d9c326dda031f86e00755a274e61b22a8c",
+                  "verifier": "c66efe5c814a2a6e19fd645010de073b3df4fe3675ac946533a95ac1b23095db",
+                  "tracker": "manual",
+                  "reason": "the collection publishes no releases to track",
+                  "from": "asset",
+                  "path": null,
+                  "resolved": "https://github.com/tectonic-os/modules/archive/d1a471d9c326dda031f86e00755a274e61b22a8c.tar.gz"
+                },
                 "imported": null
               },
               "satisfies": []
@@ -110,7 +131,13 @@
           "overlay_files": {
             "/etc/pki/containers/cosign.pub": "tectonic-os/signature-policy"
           },
-          "overlay_overridden": [],
+          "overlay_overridden": [
+            {
+              "path": "/etc/pki/containers/cosign.pub",
+              "module": "tectonic-os/signature-policy",
+              "by": "tectonic-os/signature-policy"
+            }
+          ],
           "collected_files": {},
           "collect_destinations": []
         }
