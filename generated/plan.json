@@ -42,13 +42,13 @@
       "file": "./proving-ground.image.kdl",
       "pin": {
         "locator": "https://github.com/tectonic-os/modules/archive/{version}.tar.gz",
-        "selector": "d1a471d9c326dda031f86e00755a274e61b22a8c",
-        "verifier": "c66efe5c814a2a6e19fd645010de073b3df4fe3675ac946533a95ac1b23095db",
+        "selector": "a50e304942ce19f382b05ccf504bf8e8d29812bd",
+        "verifier": "f37f8ac48c4788b39726daee0c4067d3c0d396c015584e4029a87c7fe9abb577",
         "tracker": "manual",
         "reason": "the collection publishes no releases to track",
         "from": "asset",
         "path": null,
-        "resolved": "https://github.com/tectonic-os/modules/archive/d1a471d9c326dda031f86e00755a274e61b22a8c.tar.gz"
+        "resolved": "https://github.com/tectonic-os/modules/archive/a50e304942ce19f382b05ccf504bf8e8d29812bd.tar.gz"
       }
     }
   ],
@@ -64,7 +64,7 @@
       "description": "",
       "keywords": [],
       "logo_url": "",
-      "conforms": "",
+      "conforms": "standard",
       "base": {
         "image": "quay.io/fedora/fedora-bootc:44",
         "family": "fedora",
@@ -93,7 +93,7 @@
               "dir": ".remote/tectonic-os/signature-policy",
               "flavour": null,
               "variant": null,
-              "remote": "d1a471d9c326dda031f86e00755a274e61b22a8c",
+              "remote": "a50e304942ce19f382b05ccf504bf8e8d29812bd",
               "description": "Sigstore signature verification for the image's own updates",
               "options": {},
               "provides": [
@@ -101,17 +101,17 @@
               ],
               "requires": [],
               "provenance": {
-                "content": "ecf4e67ec46a6aa34f1765a40169a6e526c8f25d6e04a5b3519ed96d63445d4a",
+                "content": "a3950aa1b8b107e3cf1c32d33dd95f93f8abc3ecfa229032ac5f535dcc03a2f1",
                 "repo": false,
                 "pin": {
                   "locator": "https://github.com/tectonic-os/modules/archive/{version}.tar.gz",
-                  "selector": "d1a471d9c326dda031f86e00755a274e61b22a8c",
-                  "verifier": "c66efe5c814a2a6e19fd645010de073b3df4fe3675ac946533a95ac1b23095db",
+                  "selector": "a50e304942ce19f382b05ccf504bf8e8d29812bd",
+                  "verifier": "f37f8ac48c4788b39726daee0c4067d3c0d396c015584e4029a87c7fe9abb577",
                   "tracker": "manual",
                   "reason": "the collection publishes no releases to track",
                   "from": "asset",
                   "path": null,
-                  "resolved": "https://github.com/tectonic-os/modules/archive/d1a471d9c326dda031f86e00755a274e61b22a8c.tar.gz"
+                  "resolved": "https://github.com/tectonic-os/modules/archive/a50e304942ce19f382b05ccf504bf8e8d29812bd.tar.gz"
                 },
                 "imported": null
               },
@@ -131,13 +131,7 @@
           "overlay_files": {
             "/etc/pki/containers/cosign.pub": "tectonic-os/signature-policy"
           },
-          "overlay_overridden": [
-            {
-              "path": "/etc/pki/containers/cosign.pub",
-              "module": "tectonic-os/signature-policy",
-              "by": "tectonic-os/signature-policy"
-            }
-          ],
+          "overlay_overridden": [],
           "collected_files": {},
           "collect_destinations": []
         }

@@ -1,5 +1,6 @@
 image {
     name "proving-ground"
+    conforms "standard"
     url "https://github.com/tectonic-os/proving-ground"
     issues-url "https://github.com/tectonic-os/proving-ground/issues"
 
