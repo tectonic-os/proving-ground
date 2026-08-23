@@ -22,6 +22,9 @@ FROM ${BASE}
 
 ## Module layers
 
+# ---- /opt build root ----
+RUN mv /opt /opt.bak && mkdir /opt
+
 # ---- tectonic-os/signature-policy ----
 RUN --mount=type=bind,from=ctx,source=/modules/.remote/tectonic-os/signature-policy,target=/ctx/modules/.remote/tectonic-os/signature-policy \
     --mount=type=bind,from=ctx,source=/lib,target=/ctx/lib \
