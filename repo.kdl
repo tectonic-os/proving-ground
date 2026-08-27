@@ -2,7 +2,7 @@ schema-version 1
 name "Proving Ground"
 
 // renovate: datasource=github-releases depName=tectonic-os/tectonic
-tect-version "0.5.1"
+tect-version "0.5.1" sha256="090ef04a9a0afd490984dc5cb37895304f6a29f4ed66255255cbaf6530048406"
 
 workflows at="12:30" {
     base-sig-probe
