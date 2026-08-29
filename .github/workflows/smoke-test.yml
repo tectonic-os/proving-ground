@@ -124,27 +124,29 @@ jobs:
           echo "==> bootc status"
           s bootc status || { echo "FAIL: bootc status"; exit 1; }
 
+          # Both readings are collected before either is judged: a degraded
+          # state that exits first never names the unit that degraded it.
           echo "==> systemctl is-system-running"
           # --wait, because ssh answers before the last unit has started
           state="$(s systemctl is-system-running --wait)" || true
-          case "$state" in
-            running)
-              echo "system state: ${state}"
-              ;;
-            *)
-              echo "FAIL: system state is '${state}', expected running" >&2
-              exit 1
-              ;;
-          esac
 
           echo "==> systemctl --failed"
-          failed="$(s systemctl --failed --no-legend | wc -l)" || true
-          if [ "$failed" -gt 0 ]; then
-            echo "FAIL: ${failed} failed units:" >&2
-            s systemctl --failed --no-legend >&2 || true
+          failed="$(s systemctl --failed --no-legend)" || true
+          if [ -n "$failed" ]; then
+            printf '%s\n' "$failed"
+          else
+            echo "No failed units"
+          fi
+
+          echo "system state: ${state:-unreachable}"
+          if [ "$state" != running ]; then
+            echo "FAIL: system state is '${state}', expected running" >&2
             exit 1
           fi
-          echo "No failed units"
+          if [ -n "$failed" ]; then
+            echo "FAIL: the units above are failed" >&2
+            exit 1
+          fi
 
       - name: Serial console
         if: failure()

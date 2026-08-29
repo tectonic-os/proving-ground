@@ -84,6 +84,7 @@
           "image": "proving-ground",
           "flavour": null,
           "published": "proving-ground",
+          "conforms": "standard",
           "default": true,
           "pr": true,
           "siblings": [],
@@ -100,6 +101,9 @@
                 "signature-policy"
               ],
               "requires": [],
+              "packages": [],
+              "groups": [],
+              "coprs": [],
               "provenance": {
                 "content": "a3950aa1b8b107e3cf1c32d33dd95f93f8abc3ecfa229032ac5f535dcc03a2f1",
                 "repo": false,
