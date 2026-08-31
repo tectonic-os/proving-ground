@@ -18,7 +18,7 @@
       "after": []
     },
     {
-      "name": "mac-policy",
+      "name": "rechunking",
       "kind": "capability",
       "build_only": false,
       "provider": "base",
@@ -26,7 +26,7 @@
       "after": []
     },
     {
-      "name": "rechunking",
+      "name": "selinux-policy",
       "kind": "capability",
       "build_only": false,
       "provider": "base",
