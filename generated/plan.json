@@ -370,6 +370,7 @@
                     "systemd-resolved",
                     "libnss-resolve",
                     "libnss-myhostname",
+                    "iproute2",
                     "skopeo",
                     "ca-certificates",
                     "zstd",
@@ -393,7 +394,7 @@
               "groups": [],
               "coprs": [],
               "provenance": {
-                "content": "2c9dd5bb37d26177d010d97c46baae6f33c60418a42841aa7b1eede385fc4374",
+                "content": "4c91b0f9e06b18d581fba2be449e07305eeb1a4dc5cb747c16cd110c26b179a1",
                 "repo": false,
                 "pin": {
                   "locator": "https://github.com/tectonic-os/modules/archive/refs/heads/{version}.tar.gz",
@@ -576,6 +577,7 @@
             "/usr/lib/bootc/kargs.d/10-console.toml": "tectonic-os/deb-bootc-base/bootc",
             "/usr/lib/dracut/dracut.conf.d/30-bootc.conf": "tectonic-os/deb-bootc-base/bootc",
             "/usr/lib/ostree/prepare-root.conf": "tectonic-os/deb-bootc-base/bootc",
+            "/usr/lib/systemd/network/89-ethernet.network": "tectonic-os/deb-bootc-base/bootc",
             "/usr/lib/systemd/system-preset/45-module-bootc-base.preset": "tectonic-os/deb-bootc-base/bootc",
             "/usr/lib/systemd/system-preset/45-module-yubikey.preset": "tectonic-os/yubikey",
             "/usr/lib/systemd/system/grub-menu-from-bls.path": "tectonic-os/deb-bootc-base/bootc",

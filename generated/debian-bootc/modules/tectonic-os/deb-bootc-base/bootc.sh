@@ -20,7 +20,7 @@ export ASSET_BOOTUPD_VENDOR_SHA256="b9348f75a7c94f727e3a7bf2487113348431ea69c6d7
 
 source /ctx/lib/family.sh
 
-install_packages 'linux-image-amd64' 'firmware-linux-free' 'dracut' 'ostree' 'composefs' 'systemd-boot' 'systemd-boot-efi' 'shim-signed' 'grub-efi-amd64-signed' 'grub-common' 'systemd-resolved' 'libnss-resolve' 'libnss-myhostname' 'skopeo' 'ca-certificates' 'zstd' 'curl' 'btrfs-progs' 'xfsprogs' 'e2fsprogs' 'dosfstools' 'fdisk' 'efibootmgr' 'cryptsetup-bin' 'dmsetup' 'openssh-server' 'sudo' 'less' 'man-db'
+install_packages 'linux-image-amd64' 'firmware-linux-free' 'dracut' 'ostree' 'composefs' 'systemd-boot' 'systemd-boot-efi' 'shim-signed' 'grub-efi-amd64-signed' 'grub-common' 'systemd-resolved' 'libnss-resolve' 'libnss-myhostname' 'iproute2' 'skopeo' 'ca-certificates' 'zstd' 'curl' 'btrfs-progs' 'xfsprogs' 'e2fsprogs' 'dosfstools' 'fdisk' 'efibootmgr' 'cryptsetup-bin' 'dmsetup' 'openssh-server' 'sudo' 'less' 'man-db'
 
 source /ctx/modules/.remote/tectonic-os/deb-bootc-base/bootc/module.sh
 
