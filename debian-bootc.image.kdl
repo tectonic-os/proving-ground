@@ -1,0 +1,20 @@
+image {
+    name "debian-bootc"
+    url "https://github.com/tectonic-os/proving-ground"
+    issues-url "https://github.com/tectonic-os/proving-ground/issues"
+
+    base "docker.io/library/debian:forky" {
+        family "debian"
+        requires "bootc-base"
+        signed #false
+    }
+
+    modules {
+        source "tectonic-os" {
+            module "debian-family"
+            module "deb-bootc-base/apparmor"
+            module "deb-bootc-base/podman"
+            module "deb-bootc-base/bootc"
+        }
+    }
+}

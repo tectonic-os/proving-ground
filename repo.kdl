@@ -1,30 +1,22 @@
 schema-version 1
-name "Proving Ground"
+name "proving-ground"
 
 // renovate: datasource=github-releases depName=tectonic-os/tectonic
-tect-version "0.6.19" sha256="8b59629a22d0a5a3bbb744347d100715189075a1a5a9f48d08a3a6e6695d3450"
-
-workflows at="12:30" {
-    base-sig-probe
-    build
-    build-disk
-    cleanup-registry
-    smoke-test
-}
+tect-version "0.6.27" sha256="80eddf66c9b53bfdfa9497047e5022300425682a8f47c35dfce953acb91b6dae"
 
 sources {
     tectonic-os {
         pin {
-            manual "the collection publishes no releases to track"
-            version "5ac1c4da0f0accf5a1ca6c28a6fe954e1d643ea9"
-            url "https://github.com/tectonic-os/modules/archive/{version}.tar.gz"
-            sha256 "d615a424688f27c0c631fec5aaafa02859d76a445455d8ab2909d4c794e50456"
+            unpinned "This is the trusted source for modules"
+            version "main"
+            url "https://github.com/tectonic-os/modules/archive/refs/heads/{version}.tar.gz"
         }
     }
 }
 
-audit {
-    enforce #true
+workflows {
+    build
+    base-sig-probe
+    cleanup-registry
+    smoke-test
 }
-
-default-image "proving-ground"

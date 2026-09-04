@@ -1,0 +1,93 @@
+{
+  "image": "debian-bootc",
+  "capabilities": [
+    {
+      "name": "/usr/bin/bootc",
+      "kind": "file",
+      "build_only": false,
+      "provider": "tectonic-os/deb-bootc-base/bootc",
+      "required_by": [],
+      "after": []
+    },
+    {
+      "name": "/usr/bin/bootupctl",
+      "kind": "file",
+      "build_only": false,
+      "provider": "tectonic-os/deb-bootc-base/bootc",
+      "required_by": [],
+      "after": []
+    },
+    {
+      "name": "/usr/bin/crun",
+      "kind": "file",
+      "build_only": false,
+      "provider": "tectonic-os/deb-bootc-base/podman",
+      "required_by": [],
+      "after": []
+    },
+    {
+      "name": "/usr/bin/podman",
+      "kind": "file",
+      "build_only": false,
+      "provider": "tectonic-os/deb-bootc-base/podman",
+      "required_by": [],
+      "after": []
+    },
+    {
+      "name": "/usr/lib/sysimage/dpkg",
+      "kind": "file",
+      "build_only": false,
+      "provider": "tectonic-os/deb-bootc-base/bootc",
+      "required_by": [],
+      "after": []
+    },
+    {
+      "name": "/usr/sbin/sshd",
+      "kind": "file",
+      "build_only": false,
+      "provider": "tectonic-os/deb-bootc-base/bootc",
+      "required_by": [],
+      "after": []
+    },
+    {
+      "name": "apparmor-policy",
+      "kind": "capability",
+      "build_only": false,
+      "provider": "tectonic-os/deb-bootc-base/apparmor",
+      "required_by": [],
+      "after": []
+    },
+    {
+      "name": "bootc-base",
+      "kind": "capability",
+      "build_only": false,
+      "provider": "tectonic-os/deb-bootc-base/bootc",
+      "required_by": [],
+      "after": []
+    },
+    {
+      "name": "build-environment",
+      "kind": "capability",
+      "build_only": false,
+      "provider": "tectonic-os/debian-family",
+      "required_by": [
+        "tectonic-os/deb-bootc-base/apparmor",
+        "tectonic-os/deb-bootc-base/podman",
+        "tectonic-os/deb-bootc-base/bootc"
+      ],
+      "after": []
+    },
+    {
+      "name": "container-runtime",
+      "kind": "capability",
+      "build_only": false,
+      "provider": "tectonic-os/deb-bootc-base/podman",
+      "required_by": [
+        "tectonic-os/deb-bootc-base/bootc"
+      ],
+      "after": []
+    }
+  ],
+  "overrides": [],
+  "suppressed": []
+}

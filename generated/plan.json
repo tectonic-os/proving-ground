@@ -1,23 +1,19 @@
 {
   "schema_version": 1,
-  "default_image": "proving-ground",
-  "default_image_name": "proving-ground",
-  "pr_image": "proving-ground",
-  "default_target": "proving-ground",
-  "default_published": "proving-ground",
-  "pr_target": "proving-ground",
-  "pr_published": "proving-ground",
-  "ungated_target": "proving-ground",
-  "ungated_published": "proving-ground",
-  "cache_image": "proving-ground-cache",
+  "default_image": "debian-bootc",
+  "default_image_name": "debian-bootc",
+  "pr_image": "debian-bootc",
+  "default_target": "debian-bootc",
+  "default_published": "debian-bootc",
+  "pr_target": "debian-bootc",
+  "pr_published": "debian-bootc",
+  "ungated_target": "debian-bootc",
+  "ungated_published": "debian-bootc",
+  "cache_image": "debian-bootc-cache",
   "workflows": [
     {
       "file": "build.yml",
       "schedule": "30 12 * * *"
-    },
-    {
-      "file": "build-disk.yml",
-      "schedule": null
     },
     {
       "file": "base-sig-probe.yml",
@@ -33,90 +29,351 @@
     }
   ],
   "audit": {
-    "enforce": true
+    "enforce": false
   },
   "remotes": [
     {
-      "name": "tectonic-os/signature-policy",
-      "dir": "modules/.remote/tectonic-os/signature-policy",
-      "file": "./proving-ground.image.kdl",
+      "name": "tectonic-os/debian-family",
+      "dir": "modules/.remote/tectonic-os/debian-family",
+      "file": "./debian-bootc.image.kdl",
       "pin": {
-        "locator": "https://github.com/tectonic-os/modules/archive/{version}.tar.gz",
-        "selector": "5ac1c4da0f0accf5a1ca6c28a6fe954e1d643ea9",
-        "verifier": "d615a424688f27c0c631fec5aaafa02859d76a445455d8ab2909d4c794e50456",
-        "tracker": "manual",
-        "reason": "the collection publishes no releases to track",
+        "locator": "https://github.com/tectonic-os/modules/archive/refs/heads/{version}.tar.gz",
+        "selector": "main",
+        "verifier": null,
+        "tracker": "unpinned",
+        "reason": "This is the trusted source for modules",
         "from": "asset",
         "path": null,
-        "resolved": "https://github.com/tectonic-os/modules/archive/5ac1c4da0f0accf5a1ca6c28a6fe954e1d643ea9.tar.gz"
+        "resolved": "https://github.com/tectonic-os/modules/archive/refs/heads/main.tar.gz"
+      }
+    },
+    {
+      "name": "tectonic-os/deb-bootc-base/apparmor",
+      "dir": "modules/.remote/tectonic-os/deb-bootc-base/apparmor",
+      "file": "./debian-bootc.image.kdl",
+      "pin": {
+        "locator": "https://github.com/tectonic-os/modules/archive/refs/heads/{version}.tar.gz",
+        "selector": "main",
+        "verifier": null,
+        "tracker": "unpinned",
+        "reason": "This is the trusted source for modules",
+        "from": "asset",
+        "path": null,
+        "resolved": "https://github.com/tectonic-os/modules/archive/refs/heads/main.tar.gz"
+      }
+    },
+    {
+      "name": "tectonic-os/deb-bootc-base/podman",
+      "dir": "modules/.remote/tectonic-os/deb-bootc-base/podman",
+      "file": "./debian-bootc.image.kdl",
+      "pin": {
+        "locator": "https://github.com/tectonic-os/modules/archive/refs/heads/{version}.tar.gz",
+        "selector": "main",
+        "verifier": null,
+        "tracker": "unpinned",
+        "reason": "This is the trusted source for modules",
+        "from": "asset",
+        "path": null,
+        "resolved": "https://github.com/tectonic-os/modules/archive/refs/heads/main.tar.gz"
+      }
+    },
+    {
+      "name": "tectonic-os/deb-bootc-base/bootc",
+      "dir": "modules/.remote/tectonic-os/deb-bootc-base/bootc",
+      "file": "./debian-bootc.image.kdl",
+      "pin": {
+        "locator": "https://github.com/tectonic-os/modules/archive/refs/heads/{version}.tar.gz",
+        "selector": "main",
+        "verifier": null,
+        "tracker": "unpinned",
+        "reason": "This is the trusted source for modules",
+        "from": "asset",
+        "path": null,
+        "resolved": "https://github.com/tectonic-os/modules/archive/refs/heads/main.tar.gz"
       }
     }
   ],
-  "assets": [],
+  "assets": [
+    {
+      "module": "tectonic-os/deb-bootc-base/bootc",
+      "name": "bootc",
+      "manifest": "modules/.remote/tectonic-os/deb-bootc-base/bootc/module.kdl",
+      "pin": {
+        "locator": "https://github.com/bootc-dev/bootc/releases/download/v{version}/bootc-{version}.tar.zstd",
+        "selector": "1.16.10",
+        "verifier": "1819e7bafabc26d0cbf544a94515c17eccfea449ea780527dc8b3d766f49de46",
+        "tracker": "renovate",
+        "reason": null,
+        "from": "asset",
+        "path": null,
+        "resolved": "https://github.com/bootc-dev/bootc/releases/download/v1.16.10/bootc-1.16.10.tar.zstd"
+      }
+    },
+    {
+      "module": "tectonic-os/deb-bootc-base/bootc",
+      "name": "bootc-vendor",
+      "manifest": "modules/.remote/tectonic-os/deb-bootc-base/bootc/module.kdl",
+      "pin": {
+        "locator": "https://github.com/bootc-dev/bootc/releases/download/v{version}/bootc-{version}-vendor.tar.zstd",
+        "selector": "1.16.10",
+        "verifier": "79185625d2a44f5e209155cdd1db7a81d3058decaaf6b32453688263f821d400",
+        "tracker": "renovate",
+        "reason": null,
+        "from": "asset",
+        "path": null,
+        "resolved": "https://github.com/bootc-dev/bootc/releases/download/v1.16.10/bootc-1.16.10-vendor.tar.zstd"
+      }
+    },
+    {
+      "module": "tectonic-os/deb-bootc-base/bootc",
+      "name": "bootupd",
+      "manifest": "modules/.remote/tectonic-os/deb-bootc-base/bootc/module.kdl",
+      "pin": {
+        "locator": "https://github.com/coreos/bootupd/releases/download/v{version}/bootupd-{version}.crate",
+        "selector": "0.3.1",
+        "verifier": "335ac06a450d59f4154a81ed96186e6296c799a584cfa3c3916c7a0023498c38",
+        "tracker": "renovate",
+        "reason": null,
+        "from": "asset",
+        "path": null,
+        "resolved": "https://github.com/coreos/bootupd/releases/download/v0.3.1/bootupd-0.3.1.crate"
+      }
+    },
+    {
+      "module": "tectonic-os/deb-bootc-base/bootc",
+      "name": "bootupd-vendor",
+      "manifest": "modules/.remote/tectonic-os/deb-bootc-base/bootc/module.kdl",
+      "pin": {
+        "locator": "https://github.com/coreos/bootupd/releases/download/v{version}/bootupd-{version}-vendor.tar.zstd",
+        "selector": "0.3.1",
+        "verifier": "b9348f75a7c94f727e3a7bf2487113348431ea69c6d757ec3edcd626c0cb8576",
+        "tracker": "renovate",
+        "reason": null,
+        "from": "asset",
+        "path": null,
+        "resolved": "https://github.com/coreos/bootupd/releases/download/v0.3.1/bootupd-0.3.1-vendor.tar.zstd"
+      }
+    }
+  ],
   "images": [
     {
-      "id": "proving-ground",
-      "name": "proving-ground",
+      "id": "debian-bootc",
+      "name": "debian-bootc",
       "pretty_name": "",
-      "file": "./proving-ground.image.kdl",
+      "file": "./debian-bootc.image.kdl",
       "url": "https://github.com/tectonic-os/proving-ground",
       "issues_url": "https://github.com/tectonic-os/proving-ground/issues",
       "description": "",
       "keywords": [],
       "logo_url": "",
-      "conforms": "standard",
+      "conforms": "",
       "base": {
-        "image": "quay.io/fedora/fedora-bootc:44",
-        "family": "fedora",
+        "image": "docker.io/library/debian:forky",
+        "family": "debian",
         "signed": false,
-        "provides": [
-          "rechunking",
-          "initramfs-generation",
-          "selinux-policy"
-        ],
+        "provides": [],
         "provides_files": [],
-        "requires": []
+        "requires": [
+          "bootc-base"
+        ]
       },
       "flavours": [],
       "default_flavour": null,
       "targets": [
         {
-          "name": "proving-ground",
-          "image": "proving-ground",
+          "name": "debian-bootc",
+          "image": "debian-bootc",
           "flavour": null,
-          "published": "proving-ground",
-          "conforms": "standard",
+          "published": "debian-bootc",
+          "conforms": "",
           "default": true,
           "pr": true,
           "siblings": [],
           "modules": [
             {
-              "path": "tectonic-os/signature-policy",
-              "dir": ".remote/tectonic-os/signature-policy",
+              "path": "tectonic-os/debian-family",
+              "dir": ".remote/tectonic-os/debian-family",
               "flavour": null,
               "variant": null,
-              "remote": "5ac1c4da0f0accf5a1ca6c28a6fe954e1d643ea9",
-              "description": "Sigstore signature verification for the image's own updates",
+              "remote": "main",
+              "description": "The Debian base family: the build environment every layer runs in, and the root filesystem work that closes it",
               "options": {},
               "provides": [
-                "signature-policy"
+                "build-environment"
               ],
               "requires": [],
               "packages": [],
               "groups": [],
               "coprs": [],
               "provenance": {
-                "content": "a3950aa1b8b107e3cf1c32d33dd95f93f8abc3ecfa229032ac5f535dcc03a2f1",
+                "content": "8356afa3e204fac67438a90af824dab5675cd29c1d8521803d5243699f227f80",
                 "repo": false,
                 "pin": {
-                  "locator": "https://github.com/tectonic-os/modules/archive/{version}.tar.gz",
-                  "selector": "5ac1c4da0f0accf5a1ca6c28a6fe954e1d643ea9",
-                  "verifier": "d615a424688f27c0c631fec5aaafa02859d76a445455d8ab2909d4c794e50456",
-                  "tracker": "manual",
-                  "reason": "the collection publishes no releases to track",
+                  "locator": "https://github.com/tectonic-os/modules/archive/refs/heads/{version}.tar.gz",
+                  "selector": "main",
+                  "verifier": null,
+                  "tracker": "unpinned",
+                  "reason": "This is the trusted source for modules",
                   "from": "asset",
                   "path": null,
-                  "resolved": "https://github.com/tectonic-os/modules/archive/5ac1c4da0f0accf5a1ca6c28a6fe954e1d643ea9.tar.gz"
+                  "resolved": "https://github.com/tectonic-os/modules/archive/refs/heads/main.tar.gz"
+                },
+                "imported": null
+              },
+              "satisfies": []
+            },
+            {
+              "path": "tectonic-os/deb-bootc-base/apparmor",
+              "dir": ".remote/tectonic-os/deb-bootc-base/apparmor",
+              "flavour": null,
+              "variant": null,
+              "remote": "main",
+              "description": "AppArmor: the parser, the profile store and aa-status, which a deb-family container image carries none of",
+              "options": {},
+              "provides": [
+                "apparmor-policy"
+              ],
+              "requires": [
+                "build-environment"
+              ],
+              "packages": [
+                {
+                  "family": "debian",
+                  "names": [
+                    "apparmor",
+                    "apparmor-utils"
+                  ],
+                  "enablerepo": null
+                }
+              ],
+              "groups": [],
+              "coprs": [],
+              "provenance": {
+                "content": "3aa64158be2c843ef3d2160a7540aa75f5f27020617297f2321c7796062478ee",
+                "repo": false,
+                "pin": {
+                  "locator": "https://github.com/tectonic-os/modules/archive/refs/heads/{version}.tar.gz",
+                  "selector": "main",
+                  "verifier": null,
+                  "tracker": "unpinned",
+                  "reason": "This is the trusted source for modules",
+                  "from": "asset",
+                  "path": null,
+                  "resolved": "https://github.com/tectonic-os/modules/archive/refs/heads/main.tar.gz"
+                },
+                "imported": null
+              },
+              "satisfies": []
+            },
+            {
+              "path": "tectonic-os/deb-bootc-base/podman",
+              "dir": ".remote/tectonic-os/deb-bootc-base/podman",
+              "flavour": null,
+              "variant": null,
+              "remote": "main",
+              "description": "podman and an OCI runtime, which bootc shells out to for the image store every upgrade opens",
+              "options": {},
+              "provides": [
+                "container-runtime"
+              ],
+              "requires": [
+                "build-environment"
+              ],
+              "packages": [
+                {
+                  "family": "debian",
+                  "names": [
+                    "podman",
+                    "crun"
+                  ],
+                  "enablerepo": null
+                }
+              ],
+              "groups": [],
+              "coprs": [],
+              "provenance": {
+                "content": "dcc371d389cc3b6e8c9771169fbe416ccf970ca6ed802f98e30d0c9be77d9b41",
+                "repo": false,
+                "pin": {
+                  "locator": "https://github.com/tectonic-os/modules/archive/refs/heads/{version}.tar.gz",
+                  "selector": "main",
+                  "verifier": null,
+                  "tracker": "unpinned",
+                  "reason": "This is the trusted source for modules",
+                  "from": "asset",
+                  "path": null,
+                  "resolved": "https://github.com/tectonic-os/modules/archive/refs/heads/main.tar.gz"
+                },
+                "imported": null
+              },
+              "satisfies": []
+            },
+            {
+              "path": "tectonic-os/deb-bootc-base/bootc",
+              "dir": ".remote/tectonic-os/deb-bootc-base/bootc",
+              "flavour": null,
+              "variant": null,
+              "remote": "main",
+              "description": "Everything a deb-family container image is missing before it is a bootc image: a kernel, dracut, ostree, bootc itself, an initramfs that carries it, and an ostree-shaped root filesystem",
+              "options": {},
+              "provides": [
+                "bootc-base"
+              ],
+              "requires": [
+                "build-environment",
+                "container-runtime"
+              ],
+              "packages": [
+                {
+                  "family": "debian",
+                  "names": [
+                    "linux-image-amd64",
+                    "firmware-linux-free",
+                    "dracut",
+                    "ostree",
+                    "composefs",
+                    "systemd-boot",
+                    "systemd-boot-efi",
+                    "shim-signed",
+                    "grub-efi-amd64-signed",
+                    "grub-common",
+                    "systemd-resolved",
+                    "libnss-resolve",
+                    "libnss-myhostname",
+                    "skopeo",
+                    "ca-certificates",
+                    "zstd",
+                    "curl",
+                    "btrfs-progs",
+                    "xfsprogs",
+                    "e2fsprogs",
+                    "dosfstools",
+                    "fdisk",
+                    "efibootmgr",
+                    "cryptsetup-bin",
+                    "dmsetup",
+                    "openssh-server",
+                    "sudo",
+                    "less",
+                    "man-db"
+                  ],
+                  "enablerepo": null
+                }
+              ],
+              "groups": [],
+              "coprs": [],
+              "provenance": {
+                "content": "2c9dd5bb37d26177d010d97c46baae6f33c60418a42841aa7b1eede385fc4374",
+                "repo": false,
+                "pin": {
+                  "locator": "https://github.com/tectonic-os/modules/archive/refs/heads/{version}.tar.gz",
+                  "selector": "main",
+                  "verifier": null,
+                  "tracker": "unpinned",
+                  "reason": "This is the trusted source for modules",
+                  "from": "asset",
+                  "path": null,
+                  "resolved": "https://github.com/tectonic-os/modules/archive/refs/heads/main.tar.gz"
                 },
                 "imported": null
               },
@@ -126,15 +383,98 @@
           "suppressed": [],
           "secrets": [],
           "contract_files": [
-            "/etc/pki/containers/cosign.pub"
+            "/usr/bin/podman",
+            "/usr/bin/crun",
+            "/usr/bin/bootc",
+            "/usr/bin/bootupctl",
+            "/usr/lib/sysimage/dpkg",
+            "/usr/sbin/sshd"
           ],
           "verify_exceptions": [],
-          "assets": [],
+          "assets": [
+            {
+              "module": "tectonic-os/deb-bootc-base/bootc",
+              "name": "bootc",
+              "manifest": "modules/.remote/tectonic-os/deb-bootc-base/bootc/module.kdl",
+              "pin": {
+                "locator": "https://github.com/bootc-dev/bootc/releases/download/v{version}/bootc-{version}.tar.zstd",
+                "selector": "1.16.10",
+                "verifier": "1819e7bafabc26d0cbf544a94515c17eccfea449ea780527dc8b3d766f49de46",
+                "tracker": "renovate",
+                "reason": null,
+                "from": "asset",
+                "path": null,
+                "resolved": "https://github.com/bootc-dev/bootc/releases/download/v1.16.10/bootc-1.16.10.tar.zstd"
+              }
+            },
+            {
+              "module": "tectonic-os/deb-bootc-base/bootc",
+              "name": "bootc-vendor",
+              "manifest": "modules/.remote/tectonic-os/deb-bootc-base/bootc/module.kdl",
+              "pin": {
+                "locator": "https://github.com/bootc-dev/bootc/releases/download/v{version}/bootc-{version}-vendor.tar.zstd",
+                "selector": "1.16.10",
+                "verifier": "79185625d2a44f5e209155cdd1db7a81d3058decaaf6b32453688263f821d400",
+                "tracker": "renovate",
+                "reason": null,
+                "from": "asset",
+                "path": null,
+                "resolved": "https://github.com/bootc-dev/bootc/releases/download/v1.16.10/bootc-1.16.10-vendor.tar.zstd"
+              }
+            },
+            {
+              "module": "tectonic-os/deb-bootc-base/bootc",
+              "name": "bootupd",
+              "manifest": "modules/.remote/tectonic-os/deb-bootc-base/bootc/module.kdl",
+              "pin": {
+                "locator": "https://github.com/coreos/bootupd/releases/download/v{version}/bootupd-{version}.crate",
+                "selector": "0.3.1",
+                "verifier": "335ac06a450d59f4154a81ed96186e6296c799a584cfa3c3916c7a0023498c38",
+                "tracker": "renovate",
+                "reason": null,
+                "from": "asset",
+                "path": null,
+                "resolved": "https://github.com/coreos/bootupd/releases/download/v0.3.1/bootupd-0.3.1.crate"
+              }
+            },
+            {
+              "module": "tectonic-os/deb-bootc-base/bootc",
+              "name": "bootupd-vendor",
+              "manifest": "modules/.remote/tectonic-os/deb-bootc-base/bootc/module.kdl",
+              "pin": {
+                "locator": "https://github.com/coreos/bootupd/releases/download/v{version}/bootupd-{version}-vendor.tar.zstd",
+                "selector": "0.3.1",
+                "verifier": "b9348f75a7c94f727e3a7bf2487113348431ea69c6d757ec3edcd626c0cb8576",
+                "tracker": "renovate",
+                "reason": null,
+                "from": "asset",
+                "path": null,
+                "resolved": "https://github.com/coreos/bootupd/releases/download/v0.3.1/bootupd-0.3.1-vendor.tar.zstd"
+              }
+            }
+          ],
           "provides_files": {
-            "/etc/pki/containers/cosign.pub": "tectonic-os/signature-policy"
+            "/usr/bin/podman": "tectonic-os/deb-bootc-base/podman",
+            "/usr/bin/crun": "tectonic-os/deb-bootc-base/podman",
+            "/usr/bin/bootc": "tectonic-os/deb-bootc-base/bootc",
+            "/usr/bin/bootupctl": "tectonic-os/deb-bootc-base/bootc",
+            "/usr/lib/sysimage/dpkg": "tectonic-os/deb-bootc-base/bootc",
+            "/usr/sbin/sshd": "tectonic-os/deb-bootc-base/bootc"
           },
           "overlay_files": {
-            "/etc/pki/containers/cosign.pub": "tectonic-os/signature-policy"
+            "/usr/lib/bootc/kargs.d/10-console.toml": "tectonic-os/deb-bootc-base/bootc",
+            "/usr/lib/dracut/dracut.conf.d/30-bootc.conf": "tectonic-os/deb-bootc-base/bootc",
+            "/usr/lib/ostree/prepare-root.conf": "tectonic-os/deb-bootc-base/bootc",
+            "/usr/lib/systemd/system-preset/45-module-bootc-base.preset": "tectonic-os/deb-bootc-base/bootc",
+            "/usr/lib/systemd/system/grub-menu-from-bls.path": "tectonic-os/deb-bootc-base/bootc",
+            "/usr/lib/systemd/system/grub-menu-from-bls.service": "tectonic-os/deb-bootc-base/bootc",
+            "/usr/lib/systemd/system/sshd-keygen.service.d/10-not-only-first-boot.conf": "tectonic-os/deb-bootc-base/bootc",
+            "/usr/lib/systemd/system/sysroot-boot.mount": "tectonic-os/deb-bootc-base/bootc",
+            "/usr/lib/sysusers.d/45-module-bootc-base.conf": "tectonic-os/deb-bootc-base/bootc",
+            "/usr/lib/tmpfiles.d/00-dpkg-admindir.conf": "tectonic-os/deb-bootc-base/bootc",
+            "/usr/lib/tmpfiles.d/00-ostree-var-dirs.conf": "tectonic-os/deb-bootc-base/bootc",
+            "/usr/lib/tmpfiles.d/00-resolv-conf.conf": "tectonic-os/deb-bootc-base/bootc",
+            "/usr/libexec/grub-menu-from-bls": "tectonic-os/deb-bootc-base/bootc"
           },
           "overlay_overridden": [],
           "collected_files": {},

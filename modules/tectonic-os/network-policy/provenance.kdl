@@ -1,8 +1,0 @@
-imported "tectonic-os" {
-    content "8eca3dcfee3e9b7c508b946a06de639b202c9a58ab8499a101b0b359e19ad89f"
-    pin {
-        unpinned "This is the trusted source for modules"
-        version "main"
-        url "https://github.com/tectonic-os/modules/archive/refs/heads/{version}.tar.gz"
-    }
-}

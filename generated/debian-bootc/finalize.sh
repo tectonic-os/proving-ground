@@ -2,10 +2,15 @@
 # GENERATED FILE, do not edit.
 set -euxo pipefail
 
-# ---- tectonic-os/signature-policy ----
-MODDIR=/ctx/modules/.remote/tectonic-os/signature-policy
+# ---- tectonic-os/debian-family ----
+MODDIR=/ctx/modules/.remote/tectonic-os/debian-family
 export MODDIR
-source /ctx/modules/.remote/tectonic-os/signature-policy/finalize.sh
+source /ctx/modules/.remote/tectonic-os/debian-family/finalize.sh
+
+# ---- tectonic-os/deb-bootc-base/bootc ----
+MODDIR=/ctx/modules/.remote/tectonic-os/deb-bootc-base/bootc
+export MODDIR
+source /ctx/modules/.remote/tectonic-os/deb-bootc-base/bootc/finalize.sh
 
 # ---- /opt relocation ----
 mkdir -p /usr/lib/opt

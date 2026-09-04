@@ -1,0 +1,171 @@
+# GENERATED FILE, do not edit. Produced by `tect generate` from
+# scripts/Containerfile.skeleton and the debian-bootc image definition.
+
+ARG BASE
+FROM scratch AS ctx
+COPY modules/ /modules/
+COPY generated/ /generated/
+
+FROM scratch AS tect
+COPY out/tect /tect
+
+# ---- BEGIN GENERATED (module layers) ----
+
+### Base Image
+FROM ${BASE}
+
+## Module layers
+
+# ---- /opt build root ----
+RUN mv /opt /opt.bak && mkdir /opt
+
+# ---- tectonic-os/debian-family ----
+RUN --mount=type=bind,from=ctx,source=/modules/.remote/tectonic-os/debian-family,target=/ctx/modules/.remote/tectonic-os/debian-family \
+    --mount=type=bind,from=ctx,source=/generated/lib,target=/ctx/lib,rw \
+    --mount=type=bind,from=ctx,source=/modules/.remote/tectonic-os/debian-family/lib/family.sh,target=/ctx/lib/family.sh \
+    --mount=type=bind,from=ctx,source=/generated/debian-bootc/modules/tectonic-os/debian-family.sh,target=/ctx/module.sh \
+    --mount=type=bind,from=tect,source=/tect,target=/ctx/tect \
+    --mount=type=cache,target=/var/cache \
+    --mount=type=cache,target=/var/log \
+    --mount=type=tmpfs,target=/tmp \
+    bash /ctx/module.sh
+
+# ---- tectonic-os/deb-bootc-base/apparmor ----
+RUN --mount=type=bind,from=ctx,source=/modules/.remote/tectonic-os/deb-bootc-base/apparmor,target=/ctx/modules/.remote/tectonic-os/deb-bootc-base/apparmor \
+    --mount=type=bind,from=ctx,source=/generated/lib,target=/ctx/lib,rw \
+    --mount=type=bind,from=ctx,source=/modules/.remote/tectonic-os/debian-family/lib/family.sh,target=/ctx/lib/family.sh \
+    --mount=type=bind,from=ctx,source=/generated/debian-bootc/modules/tectonic-os/deb-bootc-base/apparmor.sh,target=/ctx/module.sh \
+    --mount=type=bind,from=tect,source=/tect,target=/ctx/tect \
+    --mount=type=cache,target=/var/cache \
+    --mount=type=cache,target=/var/log \
+    --mount=type=tmpfs,target=/tmp \
+    bash /ctx/module.sh
+
+# ---- tectonic-os/deb-bootc-base/podman ----
+RUN --mount=type=bind,from=ctx,source=/modules/.remote/tectonic-os/deb-bootc-base/podman,target=/ctx/modules/.remote/tectonic-os/deb-bootc-base/podman \
+    --mount=type=bind,from=ctx,source=/generated/lib,target=/ctx/lib,rw \
+    --mount=type=bind,from=ctx,source=/modules/.remote/tectonic-os/debian-family/lib/family.sh,target=/ctx/lib/family.sh \
+    --mount=type=bind,from=ctx,source=/generated/debian-bootc/modules/tectonic-os/deb-bootc-base/podman.sh,target=/ctx/module.sh \
+    --mount=type=bind,from=tect,source=/tect,target=/ctx/tect \
+    --mount=type=cache,target=/var/cache \
+    --mount=type=cache,target=/var/log \
+    --mount=type=tmpfs,target=/tmp \
+    bash /ctx/module.sh
+
+# ---- tectonic-os/deb-bootc-base/bootc ----
+RUN --mount=type=bind,from=ctx,source=/modules/.remote/tectonic-os/deb-bootc-base/bootc,target=/ctx/modules/.remote/tectonic-os/deb-bootc-base/bootc \
+    --mount=type=bind,from=ctx,source=/generated/lib,target=/ctx/lib,rw \
+    --mount=type=bind,from=ctx,source=/modules/.remote/tectonic-os/debian-family/lib/family.sh,target=/ctx/lib/family.sh \
+    --mount=type=bind,from=ctx,source=/generated/debian-bootc/modules/tectonic-os/deb-bootc-base/bootc.sh,target=/ctx/module.sh \
+    --mount=type=bind,from=tect,source=/tect,target=/ctx/tect \
+    --mount=type=cache,target=/var/cache \
+    --mount=type=cache,target=/var/log \
+    --mount=type=tmpfs,target=/tmp \
+    bash /ctx/module.sh
+
+# verbatim from modules/.remote/tectonic-os/deb-bootc-base/bootc/Containerfile.inc:
+# The label is what makes this a bootc image rather than a container that
+# happens to carry bootc, and the CMD is what makes `podman run` boot it. The
+# Debian base declares neither. Note that a fragment is emitted with no flavour
+# guard, so both would apply even to a build where a flavour-gated version of
+# this module's layer was skipped; this module is not flavour-gated.
+LABEL containers.bootc=1
+CMD ["/sbin/init"]
+
+# /var/cache and /var/log are build cache mounts on every *module* layer, so
+# the tool's own /var pass keeps them out of its walk and never sees what the
+# base image left there — debconf's five .dat files, apt's lists, ldconfig's
+# aux-cache, which `bootc container lint` then reports as /var content with no
+# tmpfiles entry. A layer mounting neither is the only thing that can reach
+# them. This is the last place a *module* can do it; the four layers the
+# skeleton adds below the modules mount neither either, and one of them runs
+# `systemd-analyze verify`, which shells out to man — so if /var/cache/man ever
+# turns up in a built image, that is where it came from and not from here.
+RUN rm -rf /var/cache/* /var/log/*
+
+# `/etc/hostname` is `debuerreotype` — the name of the tool that builds the
+# Debian container image — and it outranks the `DEFAULT_HOSTNAME` that `tect
+# os-release` writes from the image's own name, so every machine installed from
+# this base came up under it. Measured 2026-09-01 on the first boot, and again
+# in the built image: the earlier note that the file carried the *build
+# container's id* was a reading through podman's runtime mount, not image
+# content.
+#
+# A `COPY` and not a line in `finalize.sh`, because this is one of the three
+# paths the build backend bind-mounts into every `RUN`: `rm` inside a layer
+# answers `Device or resource busy` and the image keeps the base's copy
+# regardless. A `COPY` writes no container and so sees no mount.
+#
+# The file beside this one holds a single newline, which is what systemd wants:
+# it skips empty and commented lines, finds no hostname, and falls back to
+# `DEFAULT_HOSTNAME`.
+#
+# `/modules/.remote/tectonic-os/deb-bootc-base/bootc` and not a heredoc, since tect 0.6.26. A heredoc here was parsed by
+# whichever buildah the runner image happened to carry: measured 2026-09-04,
+# GitHub image `20260819.586` attached it and `20260828.587` did not, so the
+# `EOF` became an instruction of its own and the build died on `copier: stat:
+# "/<<EOF"` — on Ubuntu that day and on Debian whenever it drew the newer
+# image. Nothing about the file needed a heredoc; it needed a path this
+# fragment could name.
+COPY --from=ctx /modules/.remote/tectonic-os/deb-bootc-base/bootc/hostname /etc/hostname
+
+# ---- flavour gate ----
+ARG FLAVOUR
+
+# ---- image version ----
+ARG IMAGE_VERSION=dev
+
+# ---- base family ----
+ARG FAMILY
+
+# ---- image identity ----
+ARG IMAGE_ID="debian-bootc"
+ARG IMAGE_NAME="debian-bootc"
+ARG IMAGE_URL="https://github.com/tectonic-os/proving-ground"
+ARG IMAGE_ISSUES_URL="https://github.com/tectonic-os/proving-ground/issues"
+ARG IMAGE_REGISTRY=""
+
+# ---- os-release ----
+RUN --mount=type=bind,from=tect,source=/tect,target=/ctx/tect \
+    IMAGE_VERSION="${IMAGE_VERSION}" IMAGE_ID="${IMAGE_ID}" IMAGE_NAME="${IMAGE_NAME}" IMAGE_URL="${IMAGE_URL}" IMAGE_ISSUES_URL="${IMAGE_ISSUES_URL}" IMAGE_REGISTRY="${IMAGE_REGISTRY}" /ctx/tect os-release
+
+# ---- finalize ----
+RUN --mount=type=bind,from=ctx,source=/generated/debian-bootc/finalize.sh,target=/ctx/finalize.sh \
+    --mount=type=bind,from=ctx,source=/generated/lib,target=/ctx/lib \
+    --mount=type=bind,from=ctx,source=/modules/.remote/tectonic-os/debian-family,target=/ctx/modules/.remote/tectonic-os/debian-family \
+    --mount=type=bind,from=ctx,source=/modules/.remote/tectonic-os/deb-bootc-base/bootc,target=/ctx/modules/.remote/tectonic-os/deb-bootc-base/bootc \
+    --mount=type=bind,from=tect,source=/tect,target=/ctx/tect \
+    --mount=type=cache,target=/var/cache \
+    --mount=type=cache,target=/var/log \
+    --mount=type=tmpfs,target=/tmp \
+    FLAVOUR=${FLAVOUR} IMAGE_VERSION="${IMAGE_VERSION}" \
+    IMAGE_ID="${IMAGE_ID}" IMAGE_NAME="${IMAGE_NAME}" IMAGE_URL="${IMAGE_URL}" IMAGE_ISSUES_URL="${IMAGE_ISSUES_URL}" IMAGE_REGISTRY="${IMAGE_REGISTRY}" bash /ctx/finalize.sh
+
+# ---- END GENERATED ----
+
+COPY --from=ctx /generated/plan.json /usr/share/tectonic/manifest.json
+
+ARG BASE
+ARG BASE_DECLARED=""
+ARG TARGET=""
+ARG SOURCE_COMMIT=""
+ARG BUILD_BACKEND=""
+ARG MODULE_HASHES=""
+ARG ASSET_RESOLUTIONS=""
+ARG AUDIT_ENFORCE=""
+RUN --mount=type=bind,from=tect,source=/tect,target=/ctx/tect \
+    BASE="${BASE}" BASE_DECLARED="${BASE_DECLARED}" TARGET="${TARGET}" \
+    SOURCE_COMMIT="${SOURCE_COMMIT}" BUILD_BACKEND="${BUILD_BACKEND}" \
+    MODULE_HASHES="${MODULE_HASHES}" \
+    ASSET_RESOLUTIONS="${ASSET_RESOLUTIONS}" AUDIT_ENFORCE="${AUDIT_ENFORCE}" \
+    IMAGE_ID="${IMAGE_ID}" IMAGE_VERSION="${IMAGE_VERSION}" /ctx/tect build-record
+
+ARG CONTRACT_FILES=""
+ARG VERIFY_EXCEPTIONS=""
+ARG MODULE_PRESETS=""
+RUN --mount=type=tmpfs,target=/run --network=none bootc container lint
+RUN --mount=type=bind,from=tect,source=/tect,target=/ctx/tect \
+    CONTRACT_FILES="${CONTRACT_FILES}" \
+    VERIFY_EXCEPTIONS="${VERIFY_EXCEPTIONS}" \
+    MODULE_PRESETS="${MODULE_PRESETS}" \
+    FAMILY="${FAMILY}" /ctx/tect validate-image
