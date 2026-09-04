@@ -12,6 +12,11 @@ MODDIR=/ctx/modules/.remote/tectonic-os/deb-bootc-base/bootc
 export MODDIR
 source /ctx/modules/.remote/tectonic-os/deb-bootc-base/bootc/finalize.sh
 
+# ---- tectonic-os/signature-policy ----
+MODDIR=/ctx/modules/.remote/tectonic-os/signature-policy
+export MODDIR
+source /ctx/modules/.remote/tectonic-os/signature-policy/finalize.sh
+
 # ---- /opt relocation ----
 mkdir -p /usr/lib/opt
 tmpfiles=/usr/lib/tmpfiles.d/zz-opt-symlinks.conf

@@ -11,6 +11,10 @@ COPY out/tect /tect
 
 # ---- BEGIN GENERATED (module layers) ----
 
+### Public keys
+FROM ctx AS public-keys
+COPY keys/public/ /public/
+
 ### Base Image
 FROM ${BASE}
 
@@ -109,6 +113,29 @@ RUN rm -rf /var/cache/* /var/log/*
 # fragment could name.
 COPY --from=ctx /modules/.remote/tectonic-os/deb-bootc-base/bootc/hostname /etc/hostname
 
+# ---- tectonic-os/yubikey ----
+RUN --mount=type=bind,from=ctx,source=/modules/.remote/tectonic-os/yubikey,target=/ctx/modules/.remote/tectonic-os/yubikey \
+    --mount=type=bind,from=ctx,source=/generated/lib,target=/ctx/lib,rw \
+    --mount=type=bind,from=ctx,source=/modules/.remote/tectonic-os/debian-family/lib/family.sh,target=/ctx/lib/family.sh \
+    --mount=type=bind,from=ctx,source=/generated/debian-bootc/modules/tectonic-os/yubikey.sh,target=/ctx/module.sh \
+    --mount=type=bind,from=tect,source=/tect,target=/ctx/tect \
+    --mount=type=cache,target=/var/cache \
+    --mount=type=cache,target=/var/log \
+    --mount=type=tmpfs,target=/tmp \
+    bash /ctx/module.sh
+
+# ---- tectonic-os/signature-policy ----
+RUN --mount=type=bind,from=ctx,source=/modules/.remote/tectonic-os/signature-policy,target=/ctx/modules/.remote/tectonic-os/signature-policy \
+    --mount=type=bind,from=ctx,source=/generated/lib,target=/ctx/lib,rw \
+    --mount=type=bind,from=ctx,source=/modules/.remote/tectonic-os/debian-family/lib/family.sh,target=/ctx/lib/family.sh \
+    --mount=type=bind,from=ctx,source=/generated/debian-bootc/modules/tectonic-os/signature-policy.sh,target=/ctx/module.sh \
+    --mount=type=bind,from=public-keys,source=/public,target=/ctx/keys \
+    --mount=type=bind,from=tect,source=/tect,target=/ctx/tect \
+    --mount=type=cache,target=/var/cache \
+    --mount=type=cache,target=/var/log \
+    --mount=type=tmpfs,target=/tmp \
+    bash /ctx/module.sh
+
 # ---- flavour gate ----
 ARG FLAVOUR
 
@@ -134,6 +161,7 @@ RUN --mount=type=bind,from=ctx,source=/generated/debian-bootc/finalize.sh,target
     --mount=type=bind,from=ctx,source=/generated/lib,target=/ctx/lib \
     --mount=type=bind,from=ctx,source=/modules/.remote/tectonic-os/debian-family,target=/ctx/modules/.remote/tectonic-os/debian-family \
     --mount=type=bind,from=ctx,source=/modules/.remote/tectonic-os/deb-bootc-base/bootc,target=/ctx/modules/.remote/tectonic-os/deb-bootc-base/bootc \
+    --mount=type=bind,from=ctx,source=/modules/.remote/tectonic-os/signature-policy,target=/ctx/modules/.remote/tectonic-os/signature-policy \
     --mount=type=bind,from=tect,source=/tect,target=/ctx/tect \
     --mount=type=cache,target=/var/cache \
     --mount=type=cache,target=/var/log \

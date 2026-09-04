@@ -91,6 +91,36 @@
         "path": null,
         "resolved": "https://github.com/tectonic-os/modules/archive/refs/heads/main.tar.gz"
       }
+    },
+    {
+      "name": "tectonic-os/yubikey",
+      "dir": "modules/.remote/tectonic-os/yubikey",
+      "file": "./debian-bootc.image.kdl",
+      "pin": {
+        "locator": "https://github.com/tectonic-os/modules/archive/refs/heads/{version}.tar.gz",
+        "selector": "main",
+        "verifier": null,
+        "tracker": "unpinned",
+        "reason": "This is the trusted source for modules",
+        "from": "asset",
+        "path": null,
+        "resolved": "https://github.com/tectonic-os/modules/archive/refs/heads/main.tar.gz"
+      }
+    },
+    {
+      "name": "tectonic-os/signature-policy",
+      "dir": "modules/.remote/tectonic-os/signature-policy",
+      "file": "./debian-bootc.image.kdl",
+      "pin": {
+        "locator": "https://github.com/tectonic-os/modules/archive/refs/heads/{version}.tar.gz",
+        "selector": "main",
+        "verifier": null,
+        "tracker": "unpinned",
+        "reason": "This is the trusted source for modules",
+        "from": "asset",
+        "path": null,
+        "resolved": "https://github.com/tectonic-os/modules/archive/refs/heads/main.tar.gz"
+      }
     }
   ],
   "assets": [
@@ -378,6 +408,84 @@
                 "imported": null
               },
               "satisfies": []
+            },
+            {
+              "path": "tectonic-os/yubikey",
+              "dir": ".remote/tectonic-os/yubikey",
+              "flavour": null,
+              "variant": null,
+              "remote": "main",
+              "description": "Hardware token and smartcard auth: YubiKey, FIDO2, PAM and PC/SC",
+              "options": {},
+              "provides": [],
+              "requires": [
+                "build-environment"
+              ],
+              "packages": [
+                {
+                  "family": "debian",
+                  "names": [
+                    "opensc",
+                    "libpam-u2f",
+                    "libpam-yubico",
+                    "pamu2fcfg",
+                    "pcscd",
+                    "libccid",
+                    "yubikey-manager"
+                  ],
+                  "enablerepo": null
+                }
+              ],
+              "groups": [],
+              "coprs": [],
+              "provenance": {
+                "content": "3eee611761b1833871437e7a518527f26c0c18860390551db54c2d7d053b14bc",
+                "repo": false,
+                "pin": {
+                  "locator": "https://github.com/tectonic-os/modules/archive/refs/heads/{version}.tar.gz",
+                  "selector": "main",
+                  "verifier": null,
+                  "tracker": "unpinned",
+                  "reason": "This is the trusted source for modules",
+                  "from": "asset",
+                  "path": null,
+                  "resolved": "https://github.com/tectonic-os/modules/archive/refs/heads/main.tar.gz"
+                },
+                "imported": null
+              },
+              "satisfies": []
+            },
+            {
+              "path": "tectonic-os/signature-policy",
+              "dir": ".remote/tectonic-os/signature-policy",
+              "flavour": null,
+              "variant": null,
+              "remote": "main",
+              "description": "Sigstore signature verification for the image's own updates",
+              "options": {},
+              "provides": [
+                "signature-policy"
+              ],
+              "requires": [],
+              "packages": [],
+              "groups": [],
+              "coprs": [],
+              "provenance": {
+                "content": "a3950aa1b8b107e3cf1c32d33dd95f93f8abc3ecfa229032ac5f535dcc03a2f1",
+                "repo": false,
+                "pin": {
+                  "locator": "https://github.com/tectonic-os/modules/archive/refs/heads/{version}.tar.gz",
+                  "selector": "main",
+                  "verifier": null,
+                  "tracker": "unpinned",
+                  "reason": "This is the trusted source for modules",
+                  "from": "asset",
+                  "path": null,
+                  "resolved": "https://github.com/tectonic-os/modules/archive/refs/heads/main.tar.gz"
+                },
+                "imported": null
+              },
+              "satisfies": []
             }
           ],
           "suppressed": [],
@@ -388,7 +496,8 @@
             "/usr/bin/bootc",
             "/usr/bin/bootupctl",
             "/usr/lib/sysimage/dpkg",
-            "/usr/sbin/sshd"
+            "/usr/sbin/sshd",
+            "/etc/pki/containers/cosign.pub"
           ],
           "verify_exceptions": [],
           "assets": [
@@ -459,13 +568,16 @@
             "/usr/bin/bootc": "tectonic-os/deb-bootc-base/bootc",
             "/usr/bin/bootupctl": "tectonic-os/deb-bootc-base/bootc",
             "/usr/lib/sysimage/dpkg": "tectonic-os/deb-bootc-base/bootc",
-            "/usr/sbin/sshd": "tectonic-os/deb-bootc-base/bootc"
+            "/usr/sbin/sshd": "tectonic-os/deb-bootc-base/bootc",
+            "/etc/pki/containers/cosign.pub": "tectonic-os/signature-policy"
           },
           "overlay_files": {
+            "/etc/pki/containers/cosign.pub": "tectonic-os/signature-policy",
             "/usr/lib/bootc/kargs.d/10-console.toml": "tectonic-os/deb-bootc-base/bootc",
             "/usr/lib/dracut/dracut.conf.d/30-bootc.conf": "tectonic-os/deb-bootc-base/bootc",
             "/usr/lib/ostree/prepare-root.conf": "tectonic-os/deb-bootc-base/bootc",
             "/usr/lib/systemd/system-preset/45-module-bootc-base.preset": "tectonic-os/deb-bootc-base/bootc",
+            "/usr/lib/systemd/system-preset/45-module-yubikey.preset": "tectonic-os/yubikey",
             "/usr/lib/systemd/system/grub-menu-from-bls.path": "tectonic-os/deb-bootc-base/bootc",
             "/usr/lib/systemd/system/grub-menu-from-bls.service": "tectonic-os/deb-bootc-base/bootc",
             "/usr/lib/systemd/system/sshd-keygen.service.d/10-not-only-first-boot.conf": "tectonic-os/deb-bootc-base/bootc",
@@ -474,6 +586,7 @@
             "/usr/lib/tmpfiles.d/00-dpkg-admindir.conf": "tectonic-os/deb-bootc-base/bootc",
             "/usr/lib/tmpfiles.d/00-ostree-var-dirs.conf": "tectonic-os/deb-bootc-base/bootc",
             "/usr/lib/tmpfiles.d/00-resolv-conf.conf": "tectonic-os/deb-bootc-base/bootc",
+            "/usr/lib/udev/rules.d/70-u2f.rules": "tectonic-os/yubikey",
             "/usr/libexec/grub-menu-from-bls": "tectonic-os/deb-bootc-base/bootc"
           },
           "overlay_overridden": [],
