@@ -17,6 +17,7 @@ image {
             module "deb-bootc-base/bootc"
             module "yubikey"
             module "signature-policy"
+            module "kde-desktop"
         }
     }
 }

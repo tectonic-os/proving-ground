@@ -121,6 +121,21 @@
         "path": null,
         "resolved": "https://github.com/tectonic-os/modules/archive/refs/heads/main.tar.gz"
       }
+    },
+    {
+      "name": "tectonic-os/kde-desktop",
+      "dir": "modules/.remote/tectonic-os/kde-desktop",
+      "file": "./debian-bootc.image.kdl",
+      "pin": {
+        "locator": "https://github.com/tectonic-os/modules/archive/refs/heads/{version}.tar.gz",
+        "selector": "main",
+        "verifier": null,
+        "tracker": "unpinned",
+        "reason": "This is the trusted source for modules",
+        "from": "asset",
+        "path": null,
+        "resolved": "https://github.com/tectonic-os/modules/archive/refs/heads/main.tar.gz"
+      }
     }
   ],
   "assets": [
@@ -487,6 +502,102 @@
                 "imported": null
               },
               "satisfies": []
+            },
+            {
+              "path": "tectonic-os/kde-desktop",
+              "dir": ".remote/tectonic-os/kde-desktop",
+              "flavour": null,
+              "variant": null,
+              "remote": "main",
+              "description": "KDE Plasma desktop and the application set it ships with",
+              "options": {},
+              "provides": [
+                "plasma-desktop"
+              ],
+              "requires": [
+                "build-environment"
+              ],
+              "packages": [
+                {
+                  "family": "debian",
+                  "names": [
+                    "plasma-desktop",
+                    "plasma-workspace",
+                    "plasma-workspace-wallpapers",
+                    "systemsettings",
+                    "sddm",
+                    "sddm-theme-breeze",
+                    "kwin-wayland",
+                    "kwin-x11",
+                    "kscreen",
+                    "kde-cli-tools",
+                    "breeze",
+                    "breeze-icon-theme",
+                    "kde-config-gtk-style",
+                    "polkit-kde-agent-1",
+                    "xdg-desktop-portal-kde",
+                    "plasma-nm",
+                    "plasma-pa",
+                    "plasma-systemmonitor",
+                    "bluedevil",
+                    "libpam-kwallet5",
+                    "kwalletmanager",
+                    "print-manager",
+                    "plasma-browser-integration",
+                    "plasma-firewall",
+                    "dolphin",
+                    "konsole",
+                    "ark",
+                    "kde-spectacle",
+                    "kate",
+                    "ksystemlog",
+                    "kamera",
+                    "gvfs",
+                    "gvfs-daemons",
+                    "gvfs-fuse",
+                    "firewalld",
+                    "accountsservice",
+                    "tuned",
+                    "tuned-ppd",
+                    "thermald",
+                    "switcheroo-control",
+                    "input-remapper-daemon",
+                    "input-remapper-gtk",
+                    "udisks2",
+                    "upower",
+                    "xdg-user-dirs",
+                    "pipewire",
+                    "pipewire-pulse",
+                    "wireplumber",
+                    "network-manager",
+                    "wpasupplicant",
+                    "bluez",
+                    "pinentry-qt",
+                    "fonts-noto-core",
+                    "fonts-noto-color-emoji",
+                    "fonts-hack"
+                  ],
+                  "enablerepo": null
+                }
+              ],
+              "groups": [],
+              "coprs": [],
+              "provenance": {
+                "content": "ac5645498b3a98ba5eab1176dc5cbb8a0a723ad27bad6ac37e8dd65ae9866df9",
+                "repo": false,
+                "pin": {
+                  "locator": "https://github.com/tectonic-os/modules/archive/refs/heads/{version}.tar.gz",
+                  "selector": "main",
+                  "verifier": null,
+                  "tracker": "unpinned",
+                  "reason": "This is the trusted source for modules",
+                  "from": "asset",
+                  "path": null,
+                  "resolved": "https://github.com/tectonic-os/modules/archive/refs/heads/main.tar.gz"
+                },
+                "imported": null
+              },
+              "satisfies": []
             }
           ],
           "suppressed": [],
@@ -500,7 +611,12 @@
             "/usr/sbin/sshd",
             "/etc/pki/containers/cosign.pub"
           ],
-          "verify_exceptions": [],
+          "verify_exceptions": [
+            {
+              "class": "man-page-missing",
+              "unit": "plasmalogin.service"
+            }
+          ],
           "assets": [
             {
               "module": "tectonic-os/deb-bootc-base/bootc",
@@ -579,17 +695,21 @@
             "/usr/lib/ostree/prepare-root.conf": "tectonic-os/deb-bootc-base/bootc",
             "/usr/lib/systemd/network/89-ethernet.network": "tectonic-os/deb-bootc-base/bootc",
             "/usr/lib/systemd/system-preset/45-module-bootc-base.preset": "tectonic-os/deb-bootc-base/bootc",
+            "/usr/lib/systemd/system-preset/45-module-kde-desktop.preset": "tectonic-os/kde-desktop",
             "/usr/lib/systemd/system-preset/45-module-yubikey.preset": "tectonic-os/yubikey",
             "/usr/lib/systemd/system/grub-menu-from-bls.path": "tectonic-os/deb-bootc-base/bootc",
             "/usr/lib/systemd/system/grub-menu-from-bls.service": "tectonic-os/deb-bootc-base/bootc",
+            "/usr/lib/systemd/system/plasmalogin-shadow-workaround.service": "tectonic-os/kde-desktop",
             "/usr/lib/systemd/system/sshd-keygen.service.d/10-not-only-first-boot.conf": "tectonic-os/deb-bootc-base/bootc",
             "/usr/lib/systemd/system/sysroot-boot.mount": "tectonic-os/deb-bootc-base/bootc",
+            "/usr/lib/systemd/user-preset/45-module-kde-desktop.preset": "tectonic-os/kde-desktop",
             "/usr/lib/sysusers.d/45-module-bootc-base.conf": "tectonic-os/deb-bootc-base/bootc",
             "/usr/lib/tmpfiles.d/00-dpkg-admindir.conf": "tectonic-os/deb-bootc-base/bootc",
             "/usr/lib/tmpfiles.d/00-ostree-var-dirs.conf": "tectonic-os/deb-bootc-base/bootc",
             "/usr/lib/tmpfiles.d/00-resolv-conf.conf": "tectonic-os/deb-bootc-base/bootc",
             "/usr/lib/udev/rules.d/70-u2f.rules": "tectonic-os/yubikey",
-            "/usr/libexec/grub-menu-from-bls": "tectonic-os/deb-bootc-base/bootc"
+            "/usr/libexec/grub-menu-from-bls": "tectonic-os/deb-bootc-base/bootc",
+            "/usr/libexec/plasmalogin-shadow-workaround": "tectonic-os/kde-desktop"
           },
           "overlay_overridden": [],
           "collected_files": {},

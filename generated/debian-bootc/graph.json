@@ -84,7 +84,8 @@
         "tectonic-os/deb-bootc-base/apparmor",
         "tectonic-os/deb-bootc-base/podman",
         "tectonic-os/deb-bootc-base/bootc",
-        "tectonic-os/yubikey"
+        "tectonic-os/yubikey",
+        "tectonic-os/kde-desktop"
       ],
       "after": []
     },
@@ -96,6 +97,14 @@
       "required_by": [
         "tectonic-os/deb-bootc-base/bootc"
       ],
+      "after": []
+    },
+    {
+      "name": "plasma-desktop",
+      "kind": "capability",
+      "build_only": false,
+      "provider": "tectonic-os/kde-desktop",
+      "required_by": [],
       "after": []
     },
     {

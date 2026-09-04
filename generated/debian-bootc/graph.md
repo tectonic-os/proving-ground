@@ -15,10 +15,12 @@ graph LR
     m3["tectonic-os/deb-bootc-base/bootc"]
     m4["tectonic-os/yubikey"]
     m5["tectonic-os/signature-policy"]
+    m6["tectonic-os/kde-desktop"]
     m0 -->|"build-environment"| m1
     m0 -->|"build-environment"| m2
     m0 -->|"build-environment"| m3
     m0 -->|"build-environment"| m4
+    m0 -->|"build-environment"| m6
     m1 -.->|"apparmor-policy"| m4
     m2 -->|"container-runtime"| m3
 ```
@@ -36,6 +38,7 @@ graph LR
 | `/usr/sbin/sshd` | file | `tectonic-os/deb-bootc-base/bootc` |  |  |
 | `apparmor-policy` | capability | `tectonic-os/deb-bootc-base/apparmor` |  | `tectonic-os/yubikey` |
 | `bootc-base` | capability | `tectonic-os/deb-bootc-base/bootc` |  |  |
-| `build-environment` | capability | `tectonic-os/debian-family` | `tectonic-os/deb-bootc-base/apparmor`, `tectonic-os/deb-bootc-base/podman`, `tectonic-os/deb-bootc-base/bootc`, `tectonic-os/yubikey` |  |
+| `build-environment` | capability | `tectonic-os/debian-family` | `tectonic-os/deb-bootc-base/apparmor`, `tectonic-os/deb-bootc-base/podman`, `tectonic-os/deb-bootc-base/bootc`, `tectonic-os/yubikey`, `tectonic-os/kde-desktop` |  |
 | `container-runtime` | capability | `tectonic-os/deb-bootc-base/podman` | `tectonic-os/deb-bootc-base/bootc` |  |
+| `plasma-desktop` | capability | `tectonic-os/kde-desktop` |  |  |
 | `signature-policy` | capability | `tectonic-os/signature-policy` |  |  |
