@@ -409,7 +409,7 @@
               "groups": [],
               "coprs": [],
               "provenance": {
-                "content": "4c91b0f9e06b18d581fba2be449e07305eeb1a4dc5cb747c16cd110c26b179a1",
+                "content": "ac72a4a72dfd6c2b59ebbc27f26a165e183390e3c4b15b936c0aecf9fab70caf",
                 "repo": false,
                 "pin": {
                   "locator": "https://github.com/tectonic-os/modules/archive/refs/heads/{version}.tar.gz",
@@ -701,6 +701,7 @@
             "/usr/lib/systemd/system/grub-menu-from-bls.service": "tectonic-os/deb-bootc-base/bootc",
             "/usr/lib/systemd/system/plasmalogin-shadow-workaround.service": "tectonic-os/kde-desktop",
             "/usr/lib/systemd/system/sshd-keygen.service.d/10-not-only-first-boot.conf": "tectonic-os/deb-bootc-base/bootc",
+            "/usr/lib/systemd/system/sysroot-boot-rw.service": "tectonic-os/deb-bootc-base/bootc",
             "/usr/lib/systemd/system/sysroot-boot.mount": "tectonic-os/deb-bootc-base/bootc",
             "/usr/lib/systemd/user-preset/45-module-kde-desktop.preset": "tectonic-os/kde-desktop",
             "/usr/lib/sysusers.d/45-module-bootc-base.conf": "tectonic-os/deb-bootc-base/bootc",
