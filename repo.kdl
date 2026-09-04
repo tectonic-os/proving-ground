@@ -2,7 +2,7 @@ schema-version 1
 name "proving-ground"
 
 // renovate: datasource=github-releases depName=tectonic-os/tectonic
-tect-version "0.6.27" sha256="80eddf66c9b53bfdfa9497047e5022300425682a8f47c35dfce953acb91b6dae"
+tect-version "0.6.28" sha256="cd10920ac98cfee21e9e075c12f6d08bbd5aed08c4361c950fee8d26abfd1c8a"
 
 sources {
     tectonic-os {
