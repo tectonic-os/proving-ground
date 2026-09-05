@@ -11,10 +11,10 @@ image {
 
     modules {
         source "tectonic-os" {
-            module "deb-family/apt"
-            module "deb-family/apparmor"
-            module "deb-family/podman"
-            module "deb-family/bootc"
+            module "deb-family/build-environment"
+            module "deb-family/apparmor-policy"
+            module "deb-family/container-runtime"
+            module "deb-family/bootc-base"
             module "hardware/yubikey"
             module "updates/signature-policy"
             module "desktop/kde"
