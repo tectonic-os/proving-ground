@@ -11,13 +11,13 @@ image {
 
     modules {
         source "tectonic-os" {
-            module "debian-family"
-            module "deb-bootc-base/apparmor"
-            module "deb-bootc-base/podman"
-            module "deb-bootc-base/bootc"
-            module "yubikey"
-            module "signature-policy"
-            module "kde-desktop"
+            module "deb-family/apt"
+            module "deb-family/apparmor"
+            module "deb-family/podman"
+            module "deb-family/bootc"
+            module "hardware/yubikey"
+            module "updates/signature-policy"
+            module "desktop/kde"
         }
     }
 }
